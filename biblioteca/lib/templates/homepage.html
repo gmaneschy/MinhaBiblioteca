@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Livros cadastrados</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <div class="livros-lista">
+            {% if livros %}
+                <ul>
+                    {% for livro in livros %}
+                        <li>Nome: {{ livro.titulo }}<br>
+                            Autor: {{ livro.autor }}<br>
+                            Editora: {{ livro.editora }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="nenhum">Nenhum livro encontrado.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
