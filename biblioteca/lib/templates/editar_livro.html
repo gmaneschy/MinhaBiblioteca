@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar</title>
+</head>
+
+<body>
+    <h2>Editando: {{ livro.titulo }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+        <a href="{% url 'arquivo' %}">Cancelar</a>
+    </form>
+</body>
+</html>
