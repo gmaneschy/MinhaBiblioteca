@@ -1,34 +1,43 @@
 <!DOCTYPE html>
-{% load static %}
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Biblioteca</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h1>Livros cadastrados</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Cadastrar</button>
-        </form>
 
-        <div class="livros-lista">
-            {% if livros %}
-                <ul>
-                    {% for livro in livros %}
-                        <li>Nome: {{ livro.titulo }}<br>
-                            Autor: {{ livro.autor }}<br>
-                            Editora: {{ livro.editora }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="nenhum">Nenhum livro encontrado.</p>
-            {% endif %}
-        </div>
-    </div>
+<div class="container">
+  <h1>Cadastro</h1>
+  <form method="post" id="cadastroForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" id="btnCadastrar">Cadastrar</button>
+</form>
+
+
+{% if messages %}
+  <div id="cadastro-sucesso" data-sucesso="true" style="display:none;"></div>
+{% endif %}
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    const sucesso = document.querySelector('#cadastro-sucesso');
+    const botao = document.querySelector('#btnCadastrar');
+
+    if (sucesso && sucesso.dataset.sucesso === "true") {
+      const textoOriginal = botao.textContent;
+      botao.textContent = "Livro cadastrado!";
+      botao.disabled = true; // Evita clicar de novo nesse tempo
+
+      setTimeout(() => {
+        botao.textContent = textoOriginal;
+        botao.disabled = false;
+      }, 2000); // volta depois de 2 segundos
+    }
+  });
+</script>
+</div>
 </body>
 </html>

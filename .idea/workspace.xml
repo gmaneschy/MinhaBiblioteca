@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="modificado para Django&#10;Registro de livros e lista">
+    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="css fix">
+      <change afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/arquivo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/biblioteca/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/biblioteca/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -46,17 +53,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Run",
-    "Python.manage.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.manage">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Biblioteca" />
@@ -140,12 +147,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747848220398</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="css fix">
+      <option name="closed" value="true" />
+      <created>1747849050705</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747849050705</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="base" />
     <MESSAGE value="modificado para Django&#10;Registro de livros e lista" />
-    <option name="LAST_COMMIT_MESSAGE" value="modificado para Django&#10;Registro de livros e lista" />
+    <MESSAGE value="css fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="css fix" />
   </component>
 </project>

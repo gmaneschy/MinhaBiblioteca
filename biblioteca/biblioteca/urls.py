@@ -22,4 +22,5 @@ from lib import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('homepage/', views.homepage, name="homepage"),
+    path('arquivo/', views.arquivo, name="arquivo"),
 ]

@@ -3,7 +3,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh; /* necessário para centralização vertical */
   margin: 0;
+  background-color: #f5f5f5; /* opcional, só pra dar contraste */
 }
 
 .container {
@@ -12,10 +14,9 @@ body {
   border-radius: 15px;
   border: 2px solid #71bf47;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 30%;
-  max-height: 70%;
-
+  width: 30vw;
+  min-width: 300px; /* para não ficar apertado demais em telas pequenas */
+  max-width: 500px;
 }
 
 /* Título */
@@ -45,7 +46,6 @@ h1 {
   color: #888;
 }
 
-
 /* Formulário */
 form label {
   font-weight: 600;
@@ -53,7 +53,6 @@ form label {
   display: block;
   color: #444;
 }
-
 form input,
 form select,
 form textarea {
