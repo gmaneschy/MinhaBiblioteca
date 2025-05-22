@@ -12,12 +12,12 @@
         <h1>Minha Biblioteca</h1>
         <div>
             {% csrf_token %}
-            <ul class="livros-lista">
-            {% for livro in livros %}
-                <li>Nome: {{ livro.titulo }} | Autor: {{ livro.autor }} | Editora: {{ livro.editora }}</li>
-            {% endfor %}
-            </ul>
-        </div>
+           <ul class="livros-lista">
+              {% for livro in livros %}
+                <li class="livros-lista">Nome: {{ livro.titulo }} | Autor: {{ livro.autor }} | Editora: {{ livro.editora }}</li>
+              {% endfor %}
+        </ul>
+    </div>
     </div>
 </body>
 
