@@ -96,7 +96,7 @@
                     <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}')">Editar</a>
                     <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
                     <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
-                    <i class="fa-solid fa-quote-left" style="color: #ffffff"></i>
+                        <i class="fa-solid fa-quote-left" style="color: #ffffff"></i>
                     </a>
                 </td>
               </tr>
@@ -254,34 +254,46 @@ function excluirLivro(id, botao) {
   }
 </script>
 <script>
-  function abrirModalAnotacoes(id, anotacoes) {
+function abrirModalAnotacoes(id, anotacoes) {
     document.getElementById('livro_id').value = id;
-    document.getElementById('anotacoes').value = anotacoes || '';
+    document.getElementById('anotacoes').value = anotacoes !== 'None' ? anotacoes : '';
     document.getElementById('modalAnotacoes').style.display = 'block';
 }
 
-// Adicione este evento ao form de anotações
 document.getElementById('formAnotacoes').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const formData = new URLSearchParams(new FormData(this));  // Converte para URLSearchParams
+    const livroId = document.getElementById('livro_id').value;
+    const anotacoes = document.getElementById('anotacoes').value;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     fetch(this.action, {
         method: 'POST',
         headers: {
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            'Content-Type': 'application/x-www-form-urlencoded',  // Define explicitamente o Content-Type
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData
+        body: new URLSearchParams({
+            'livro_id': livroId,
+            'anotacoes': anotacoes
+        })
     })
     .then(response => {
-        if (!response.ok) {  // Verifica se a resposta HTTP é bem-sucedida
+        if (!response.ok) {
             throw new Error('Erro no servidor');
         }
         return response.json();
     })
     .then(data => {
         if (data.status === 'ok') {
+            // Atualiza o botão de anotações com os novos dados
+            const anotacaoBtn = document.querySelector(`a[onclick*="abrirModalAnotacoes(${livroId}, "]`);
+            if (anotacaoBtn) {
+                anotacaoBtn.setAttribute(
+                    'onclick',
+                    `abrirModalAnotacoes(${livroId}, '${anotacoes.replace(/'/g, "\\'")}')`
+                );
+            }
             fecharModalAnotacoes();
             alert('Anotações salvas com sucesso!');
         } else {
