@@ -21,6 +21,7 @@ from lib import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.homepage, name="homepage"),
     path('homepage/', views.homepage, name="homepage"),
     path('arquivo/', views.arquivo, name="arquivo"),
     path('editar/<int:livro_id>/', views.editar_livro, name='editar_livro'),
