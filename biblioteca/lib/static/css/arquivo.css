@@ -5,11 +5,10 @@ body {
   align-items: center;
   height: 100vh; /* necessário para centralização vertical */
   margin: 0;
-  background-color: #f5f5f5; /* opcional, só pra dar contraste */
 }
 
 .arquivo {
-  background: #fdf6e3; /* mesma cor do .container */
+  background: #fdf6e3;
   padding: 40px;
   border-radius: 15px;
   border: 3px solid #8b5e3c;
@@ -19,6 +18,20 @@ body {
   margin: 40px auto; /* centraliza horizontalmente */
   color: #444; /* cor do texto */
 }
+
+.arquivo table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+  margin-top: 0;
+}
+
+th, td {
+  border: 1px solid #8b5e3c;
+  padding: 10px;
+  text-align: left;
+}
+
 
 .tabela-scroll {
     max-height: 500px;

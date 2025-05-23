@@ -4,26 +4,6 @@
     <meta charset="UTF-8">
     <title>Biblioteca</title>
 <style>
-body {
-  font-family: 'Courier New', Courier, monospace;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 30px;
-}
-
-th, td {
-  border: 1px solid #8b5e3c;
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-
 .btn {
   background-color: #8b5e3c;
   color: white;
@@ -79,9 +59,6 @@ th {
 .modal-conteudo button {
   margin-top: 15px;
 }
-
-
-
 </style>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
@@ -89,18 +66,18 @@ th {
 
 </head>
 <body>
-    <div class="arquivo">
-        <h1>Minha Biblioteca</h1>
-        <div style="max-height: 70vh; overflow-y: auto;">
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead style="position: sticky; top: 0; background-color: #e0e4cc; z-index: 1;">
-              <tr>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 1;">Título</th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 1;">Autor</th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 1;">Editora</th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 1;">Ações</th>
-              </tr>
-            </thead>
+<div class="arquivo">
+<h1>Minha Biblioteca</h1>
+    <div style="max-height: 70vh; overflow-y: auto; position: relative;"> <!-- Adicione position: relative -->
+    <table style="width: 100%; border-collapse: collapse; border: 1px solid #8b5e3c;"> <!-- Adicione borda na tabela -->
+        <thead>
+            <tr>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Título</th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Autor</th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Editora</th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Ações</th>
+            </tr>
+        </thead>
             <tbody>
               {% for livro in livros %}
               <tr data-id="{{ livro.id }}">
@@ -118,8 +95,8 @@ th {
               {% endfor %}
             </tbody>
         </table>
-        </div>
     </div>
+</div>
 
 
 <!-- Modal para Edição -->
