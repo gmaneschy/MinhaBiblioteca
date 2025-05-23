@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="página arquivo e css">
-      <change afterPath="$PROJECT_DIR$/biblioteca/lib/templates/editar_livro.html" afterDir="false" />
+    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="tela de edição">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/biblioteca/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/biblioteca/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/arquivo.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/arquivo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747931499795</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="tela de edição">
+      <option name="closed" value="true" />
+      <created>1747937017754</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747937017754</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -178,6 +187,7 @@
     <MESSAGE value="modificado para Django&#10;Registro de livros e lista" />
     <MESSAGE value="css fix" />
     <MESSAGE value="página arquivo e css" />
-    <option name="LAST_COMMIT_MESSAGE" value="página arquivo e css" />
+    <MESSAGE value="tela de edição" />
+    <option name="LAST_COMMIT_MESSAGE" value="tela de edição" />
   </component>
 </project>

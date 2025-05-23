@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class Livro(models.Model):
-    titulo = models.CharField("Livro", max_length=100)
+    titulo = models.CharField("Título", max_length=100)
     autor = models.CharField("Autor", max_length=100)
     editora = models.CharField("Editora", max_length=100)
 

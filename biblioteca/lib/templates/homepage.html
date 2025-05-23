@@ -27,22 +27,25 @@
 
 
 {% if messages %}
-  <div id="cadastro-sucesso" data-sucesso="true" style="display:none;"></div>
+  {% for message in messages %}
+    <div class="mensagem-oculta" data-message="{{ message.tags }}" style="display: none;"></div>
+  {% endfor %}
 {% endif %}
+
 <script>
   window.addEventListener("DOMContentLoaded", function () {
-    const sucesso = document.querySelector('#cadastro-sucesso');
+    const mensagem = document.querySelector('.mensagem-oculta');
     const botao = document.querySelector('#btnCadastrar');
 
-    if (sucesso && sucesso.dataset.sucesso === "true") {
+    if (mensagem && mensagem.dataset.message.includes('success')) {
       const textoOriginal = botao.textContent;
       botao.textContent = "Livro cadastrado!";
-      botao.disabled = true; // Evita clicar de novo nesse tempo
+      botao.disabled = true;
 
       setTimeout(() => {
         botao.textContent = textoOriginal;
         botao.disabled = false;
-      }, 2000); // volta depois de 2 segundos
+      }, 2000);
     }
   });
 </script>
