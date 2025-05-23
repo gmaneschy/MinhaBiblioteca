@@ -10,7 +10,7 @@ body {
 .arquivo {
   background: #fdf6e3;
   position: relative;
-  padding: 20px;
+  padding: 70px 20px 20px 20px; /* Espaço para a busca */
   border-radius: 15px;
   border: 3px solid #8b5e3c;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9);
@@ -23,14 +23,30 @@ body {
 .arquivo table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 0;
-  margin-top: 0;
+  border: 1px solid #8b5e3c;
+  margin-top: 0px;
+}
+
+/* Container da tabela */
+.tabela-container {
+  max-height: 75vh; /* Ajuste baseado no espaço disponível */
+  overflow-y: auto;
+  position: relative;
+  margin-top: 20px; /* Espaço adicional */
 }
 
 th, td {
   border: 1px solid #8b5e3c;
   padding: 10px;
   text-align: left;
+}
+
+/* Cabeçalho da tabela sticky */
+th {
+  position: sticky;
+  top: 0;
+  background: #e0e4cc;
+  z-index: 5; /* Menor que o título e busca */
 }
 
 .tabela-scroll {
@@ -42,22 +58,24 @@ th, td {
 /* Título */
 h1 {
   position: absolute;
-  padding: 0px 0px;
-  margin-top: 10px; /* Remove margens padrão */
-  display: flex;
-  justify-content: left;
+  top: 25px; /* Posição vertical */
+  left: 20px; /* Posição horizontal */
+  margin: 0;
+  padding: 0;
   color: #444;
+  z-index: 10;
 }
 
-/* Search Button */
-/* Estilos da barra de busca */
+
+/* Container da busca */
 .search-container {
-  position: relative;
-  padding: 0px 0px;
-  right: 12px;
-  padding-bottom: 20px;
-  justify-content: right;
-  display: flex;
+  position: absolute;
+  top: 20px; /* Mesmo valor do h1 */
+  right: 10px; /* Posição horizontal */
+  margin: 0;
+  padding: 0;
+  padding-right: 20px;
+  z-index: 10;
 }
 
 .search-form {
