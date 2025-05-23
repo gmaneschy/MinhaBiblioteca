@@ -26,4 +26,5 @@ urlpatterns = [
     path('arquivo/', views.arquivo, name="arquivo"),
     path('editar/<int:livro_id>/', views.editar_livro, name='editar_livro'),
     path('deletar/<int:livro_id>/', views.deletar_livro, name='deletar_livro'),
+    path('editar-anotacoes/', views.editar_anotacoes, name='editar_anotacoes'),
 ]

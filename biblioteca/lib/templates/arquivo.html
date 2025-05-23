@@ -79,9 +79,14 @@ th {
 .modal-conteudo button {
   margin-top: 15px;
 }
+
+
+
 </style>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
     <div class="arquivo">
@@ -105,6 +110,9 @@ th {
                 <td>
                     <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}')">Editar</a>
                     <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
+                    <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
+                    <i class="fa-solid fa-quote-left" style="color: #ffffff"></i>
+                    </a>
                 </td>
               </tr>
               {% endfor %}
@@ -114,23 +122,38 @@ th {
     </div>
 
 
-  <!-- Modal -->
-  <div id="modal" class="modal">
+<!-- Modal para Edição -->
+<div id="modal" class="modal">
     <div class="modal-conteudo">
-      <form method="POST" action="{% url 'editar_livro' 0 %}" id="form-editar" onsubmit="salvarLivro(event)">
-        {% csrf_token %}
-        <input type="hidden" name="id" id="modal-id">
-        <label for="modal-titulo">Título:</label>
-        <input type="text" name="titulo" id="modal-titulo">
-        <label for="modal-autor">Autor:</label>
-        <input type="text" name="autor" id="modal-autor">
-        <label for="modal-editora">Editora:</label>
-        <input type="text" name="editora" id="modal-editora">
-        <button type="submit" class="btn">Salvar</button>
-        <button type="button" class="btn" onclick="fecharModal()">Cancelar</button>
-      </form>
+      <form id="form-editar" onsubmit="salvarLivro(event)">
+          {% csrf_token %}
+          <input type="hidden" name="id" id="modal-id">
+          <label for="modal-titulo">Título:</label>
+          <input type="text" name="titulo" id="modal-titulo">
+          <label for="modal-autor">Autor:</label>
+          <input type="text" name="autor" id="modal-autor">
+          <label for="modal-editora">Editora:</label>
+          <input type="text" name="editora" id="modal-editora">
+          <button type="submit" class="btn">Salvar</button>
+          <button type="button" class="btn" onclick="fecharModalEdicao()">Cancelar</button>
+        </form>
     </div>
+</div>
+
+<!-- Modal para Anotações -->
+<div id="modalAnotacoes" class="modal">
+  <div class="modal-conteudo">
+    <h3>Anotações</h3>
+    <form id="formAnotacoes" method="POST" action="{% url 'editar_anotacoes' %}">
+      {% csrf_token %}
+      <input type="hidden" name="livro_id" id="livro_id">
+      <textarea name="anotacoes" id="anotacoes" rows="8" style="width: 100%"></textarea>
+      <br>
+      <button type="submit" class="btn">Salvar</button>
+      <button type="button" class="btn" onclick="fecharModalAnotacoes()">Cancelar</button>
+    </form>
   </div>
+</div>
 
 <script>
     function abrirModal(id, titulo, autor, editora) {
@@ -139,19 +162,25 @@ th {
       document.getElementById('modal-titulo').value = titulo;
       document.getElementById('modal-autor').value = autor;
       document.getElementById('modal-editora').value = editora;
-
-      const form = document.getElementById('form-editar');
-      form.action = `/editar/${id}/`;
     }
-</script>
-<script>
-    function fecharModal() {
+
+    function fecharModalEdicao() {
       document.getElementById('modal').style.display = 'none';
     }
+
+    function fecharModalAnotacoes() {
+      document.getElementById('modalAnotacoes').style.display = 'none';
+    }
+
     window.onclick = function(event) {
       const modal = document.getElementById('modal');
+      const modalAnotacoes = document.getElementById('modalAnotacoes');
+
       if (event.target === modal) {
-        fecharModal();
+        fecharModalEdicao();
+      }
+      if (event.target === modalAnotacoes) {
+        fecharModalAnotacoes();
       }
     }
 </script>
@@ -169,7 +198,7 @@ th {
     }
 </script>
 <script>
-      function salvarLivro(event) {
+function salvarLivro(event) {
     event.preventDefault();
 
     const id = document.getElementById('modal-id').value;
@@ -180,34 +209,39 @@ th {
     if (!validarFormulario()) return;
 
     fetch(`/editar/${id}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-      },
-      body: new URLSearchParams({
-        'titulo': titulo,
-        'autor': autor,
-        'editora': editora
-      })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: new URLSearchParams({
+            'titulo': titulo,
+            'autor': autor,
+            'editora': editora
+        })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na resposta do servidor');
+        }
+        return response.json();
+    })
     .then(data => {
-      if (data.id) {
-        const linha = document.querySelector(`tr[data-id='${data.id}']`);
-        linha.children[0].textContent = data.titulo;
-        linha.children[1].textContent = data.autor;
-        linha.children[2].textContent = data.editora;
-        fecharModal();
-      } else {
-        alert('Erro ao salvar');
-      }
+        if (data.id) {
+            const linha = document.querySelector(`tr[data-id='${data.id}']`);
+            linha.children[0].textContent = data.titulo;
+            linha.children[1].textContent = data.autor;
+            linha.children[2].textContent = data.editora;
+            fecharModalEdicao();
+        } else {
+            alert('Erro ao salvar: ' + (data.error || ''));
+        }
     })
     .catch(error => {
-      console.error('Erro:', error);
-      alert('Erro ao salvar livro.');
+        console.error('Erro:', error);
+        alert('Erro ao salvar livro: ' + error.message);
     });
-  }
+}
 </script>
 <script>
 function excluirLivro(id, botao) {
@@ -233,6 +267,47 @@ function excluirLivro(id, botao) {
       alert('Erro ao excluir livro.');
     });
   }
+</script>
+<script>
+  function abrirModalAnotacoes(id, anotacoes) {
+    document.getElementById('livro_id').value = id;
+    document.getElementById('anotacoes').value = anotacoes || '';
+    document.getElementById('modalAnotacoes').style.display = 'block';
+}
+
+// Adicione este evento ao form de anotações
+document.getElementById('formAnotacoes').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new URLSearchParams(new FormData(this));  // Converte para URLSearchParams
+
+    fetch(this.action, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/x-www-form-urlencoded',  // Define explicitamente o Content-Type
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {  // Verifica se a resposta HTTP é bem-sucedida
+            throw new Error('Erro no servidor');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status === 'ok') {
+            fecharModalAnotacoes();
+            alert('Anotações salvas com sucesso!');
+        } else {
+            throw new Error(data.erro || 'Erro ao salvar anotações');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert(error.message);
+    });
+});
 </script>
 </body>
 
