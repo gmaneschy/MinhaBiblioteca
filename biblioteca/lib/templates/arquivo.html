@@ -68,6 +68,14 @@
 <body>
 <div class="arquivo">
 <h1>Minha Biblioteca</h1>
+    <div class="search-container">
+        <form id="search-form" class="search-form">
+          <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
+          <button type="button" class="search-button" id="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+    </div>
     <div style="max-height: 70vh; overflow-y: auto; position: relative;"> <!-- Adicione position: relative -->
     <table style="width: 100%; border-collapse: collapse; border: 1px solid #8b5e3c;"> <!-- Adicione borda na tabela -->
         <thead>
@@ -286,6 +294,32 @@ document.getElementById('formAnotacoes').addEventListener('submit', function(e) 
     });
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchBtn = document.getElementById('search-btn');
+  const searchInput = document.getElementById('search-input');
+
+  // Animação de foco
+  searchBtn.addEventListener('click', function() {
+    searchInput.focus();
+  });
+
+  // Função de busca (adaptar para sua necessidade)
+  const searchForm = document.getElementById('search-form');
+  searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const searchTerm = searchInput.value.toLowerCase();
+
+    // Adapte esta parte para filtrar sua tabela
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+  });
+});
+</script>
+
 </body>
 
 </html>
