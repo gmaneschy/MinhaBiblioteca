@@ -77,9 +77,9 @@
         </form>
     </div>
     <div class="tabela-container"> <!-- Adicione position: relative -->
-    <table> <!-- Adicione borda na tabela -->
-        <thead>
-            <tr>
+        <table>
+            <thead>
+                <tr>
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Título
                     <input type="text" class="column-filter" data-column="0">
                 </th>
@@ -89,29 +89,41 @@
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Editora
                     <input type="text" class="column-filter" data-column="2">
                 </th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">
+                    {% if request.session.mostrar_tradutor %}<th>Tradutor</th>{% endif %}
+                    {% if request.session.mostrar_genero %}<th>Gênero</th>{% endif %}
+                    {% if request.session.mostrar_npaginas %}<th>Páginas</th>{% endif %}
+                    {% if request.session.mostrar_ano %}<th>Ano</th>{% endif %}
+                    {% if request.session.mostrar_preco %}<th>Preço</th>{% endif %}
+                    {% if request.session.mostrar_status %}<th>Status</th>{% endif %}
+                    <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">
                     Ações
                     <button type="button" class="filter-btn" id="clear-filters">
                         <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
                     </button>
                 </th>
-            </tr>
-        </thead>
+                </tr>
+            </thead>
             <tbody>
-              {% for livro in livros %}
-              <tr data-id="{{ livro.id }}">
-                <td>{{ livro.titulo }}</td>
-                <td>{{ livro.autor }}</td>
-                <td>{{ livro.editora }}</td>
-                <td>
-                    <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}')">Editar</a>
-                    <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
-                    <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
-                        <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
-                    </a>
-                </td>
-              </tr>
-              {% endfor %}
+                {% for livro in livros %}
+                <tr>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td>{{ livro.editora }}</td>
+                    {% if request.session.mostrar_tradutor %}<td>{{ livro.tradutor|default:"-" }}</td>{% endif %}
+                    {% if request.session.mostrar_genero %}<td>{{ livro.genero|default:"-" }}</td>{% endif %}
+                    {% if request.session.mostrar_npaginas %}<td>{{ livro.npaginas|default:"-" }}</td>{% endif %}
+                    {% if request.session.mostrar_ano %}<td>{{ livro.ano|default:"-" }}</td>{% endif %}
+                    {% if request.session.mostrar_preco %}<td>R$ {{ livro.preco|default:"0,00" }}</td>{% endif %}
+                    {% if request.session.mostrar_status %}<td>{{ livro.get_status_display }}</td>{% endif %}
+                    <td>
+                        <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}')">Editar</a>
+                        <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
+                        <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
+                            <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

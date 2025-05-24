@@ -4,25 +4,34 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from .models import Livro
-from .forms import LivroForm
+from .forms import LivroFormSimples, LivroFormAvancado
 
-def homepage(request):
+
+def cadastrar_livro(request):
+    template_name = 'homepage.html'
+    form_simples = LivroFormSimples(request.POST or None)
+    form_avancado = LivroFormAvancado(request.POST or None)
+
     if request.method == 'POST':
-        form = LivroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Livro cadastrado!")
-            return redirect('homepage')  # recarrega a página
-    else:
-        form = LivroForm()
+        if 'form_simples' in request.POST and form_simples.is_valid():
+            form_simples.save()
+            return redirect('lista_livros')
+        elif 'form_avancado' in request.POST and form_avancado.is_valid():
+            form_avancado.save()
+            # Aqui você pode salvar as preferências de campos visíveis
+            request.session['mostrar_npaginas'] = form_avancado.cleaned_data['mostrar_npaginas']
+            request.session['mostrar_preco'] = form_avancado.cleaned_data['mostrar_preco']
+            return redirect('lista_livros')
 
-    livros = Livro.objects.all()
-    return render(request, 'homepage.html', {'livros': livros, 'form': form})
+    return render(request, template_name, {
+        'form_simples': form_simples,
+        'form_avancado': form_avancado
+    })
 
 def arquivo(request):
-    form = LivroForm(request.GET)
     livros = Livro.objects.all()
-    return render(request, 'arquivo.html', {'livros': livros, 'form': form})
+    context = {'livros': livros}
+    return render(request, 'arquivo.html', context)
 
 def editar_livro(request, livro_id):
     livro = Livro.objects.get(id=livro_id)

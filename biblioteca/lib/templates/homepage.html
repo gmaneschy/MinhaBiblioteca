@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Biblioteca</title>
     {% load static %}
-    <style>
+<style>
   body {
     background-image: url("{% static 'bookshelf.png' %}");
     background-size: cover;
@@ -18,12 +18,55 @@
 <body>
 
 <div class="container">
-  <h1>Cadastro Simples</h1>
-  <form method="post" id="cadastroForm">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" id="btnCadastrar">Cadastrar</button>
-</form>
+    <h1>Cadastro de Livros</h1>
+
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'simples')">Cadastro Simples</button>
+        <button class="tablinks" onclick="openTab(event, 'avancado')">Cadastro Avançado</button>
+    </div>
+
+    <div id="simples" class="tabcontent" style="display:block;">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_simples">
+            {{ form_simples.as_p }}
+            <button type="submit" class="btn">Salvar</button>
+        </form>
+    </div>
+
+    <div id="avancado" class="tabcontent">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_avancado">
+
+            <div class="form-section">
+                <h3>Informações Básicas</h3>
+                <a> Título: {{ form_avancado.titulo }}</a>
+                {{ form_avancado.autor }}
+                {{ form_avancado.editora }}
+                {{ form_avancado.tradutor }}
+                {{ form_avancado.genero }}
+                {{ form_avancado.npaginas }}
+                {{ form_avancado.ano }}
+                {{ form_avancado.preco }}
+                {{ form_avancado.status }}
+
+                <h3>Campos Visíveis na Tabela</h3>
+                <ul>
+                <li>{{ form_avancado.mostrar_tradutor }}</li>
+                <li>{{ form_avancado.mostrar_genero }}</li>
+                <li>{{ form_avancado.mostrar_npaginas }}</li>
+                <li>{{ form_avancado.mostrar_ano }}</li>
+                <li>{{ form_avancado.mostrar_preco }}</li>
+                <li>{{ form_avancado.mostrar_status }}</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn">Salvar</button>
+        </form>
+    </div>
+</div>
+
 
 
 {% if messages %}
@@ -31,6 +74,7 @@
     <div class="mensagem-oculta" data-message="{{ message.tags }}" style="display: none;"></div>
   {% endfor %}
 {% endif %}
+
 
 <script>
   window.addEventListener("DOMContentLoaded", function () {
@@ -49,6 +93,21 @@
     }
   });
 </script>
-</div>
+<script>
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
 </body>
+
 </html>
