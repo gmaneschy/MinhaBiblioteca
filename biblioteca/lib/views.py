@@ -15,13 +15,13 @@ def cadastrar_livro(request):
     if request.method == 'POST':
         if 'form_simples' in request.POST and form_simples.is_valid():
             form_simples.save()
-            return redirect('lista_livros')
+            return redirect('arquivo')
         elif 'form_avancado' in request.POST and form_avancado.is_valid():
             form_avancado.save()
             # Aqui você pode salvar as preferências de campos visíveis
             request.session['mostrar_npaginas'] = form_avancado.cleaned_data['mostrar_npaginas']
             request.session['mostrar_preco'] = form_avancado.cleaned_data['mostrar_preco']
-            return redirect('lista_livros')
+            return redirect('arquivo')
 
     return render(request, template_name, {
         'form_simples': form_simples,
