@@ -70,12 +70,9 @@
 <h1>Minha Biblioteca</h1>
     <div class="search-container">
         <form id="search-form" class="search-form">
-            <input type="text" class="search-input" id="search-input" placeholder="Pesquisar em todas as colunas...">
+            <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
             <button type="button" class="search-button" id="search-btn">
                 <i class="fas fa-search"></i>
-            </button>
-            <button type="button" class="btn" id="clear-filters" style="margin-left: 10px;">
-                Limpar Filtros
             </button>
         </form>
     </div>
@@ -84,15 +81,20 @@
         <thead>
             <tr>
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Título
-                    <input type="text" class="column-filter" data-column="0" placeholder="Filtrar título...">
+                    <input type="text" class="column-filter" data-column="0">
                 </th>
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Autor
-                    <input type="text" class="column-filter" data-column="1" placeholder="Filtrar autor...">
+                    <input type="text" class="column-filter" data-column="1">
                 </th>
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Editora
-                <input type="text" class="column-filter" data-column="2" placeholder="Filtrar editora...">
+                    <input type="text" class="column-filter" data-column="2">
                 </th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Ações</th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">
+                    Ações
+                    <button type="button" class="filter-btn" id="clear-filters" title="Limpar todos os filtros">
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                    </button>
+                </th>
             </tr>
         </thead>
             <tbody>

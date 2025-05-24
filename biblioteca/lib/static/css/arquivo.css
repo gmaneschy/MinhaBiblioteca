@@ -35,7 +35,7 @@ body {
   margin-top: 20px; /* Espaço adicional */
 }
 
-th, td {
+td {
   border: 1px solid #8b5e3c;
   padding: 10px;
   text-align: left;
@@ -43,10 +43,13 @@ th, td {
 
 /* Cabeçalho da tabela sticky */
 th {
+  border: 1px solid #8b5e3c;
+  padding: 10px;
+  text-align: left;
   position: relative;
   top: 0;
   background: #e0e4cc;
-  z-index: 5; /* Menor que o título e busca */
+  z-index: 5;
 }
 
 .tabela-scroll {
@@ -118,12 +121,42 @@ h1 {
 }
 
 .column-filter {
-    width: 90%;
+    position:absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 50%; /* Ajuste conforme necessário */
     padding: 5px;
-    margin-top: 5px;
     border: 1px solid #8b5e3c;
     border-radius: 4px;
     background-color: #fff8dc;
     font-family: 'Courier New', Courier, monospace;
     font-size: 12px;
+    box-sizing: border-box; /* Inclui padding na largura */
 }
+
+/* Ajuste para o cabeçalho de Ações (sem filtro) */
+th:last-child {
+    padding-bottom: 10px; /* Mantém o padding padrão */
+}
+
+
+
+/* Estilo do botão de filtro */
+.filter-btn {
+  position: absolute;
+  right: 53px; /* Distância da borda direita */
+  top: 50%; /* Alinha verticalmente no meio */
+  transform: translateY(-50%); /* Ajuste fino de centralização */
+  padding: 5px 14px;
+  font-size: 12px;
+  background-color: #8b5e3c;
+  color: white;
+  border: 1px solid #a67b5b;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background-color: #6b4226;
+}
+
