@@ -1,0 +1,14 @@
+Fazer:
+    Navbar
+    Tela de login e cadastro
+
+    homepage.html:
+        Janela lateral minimizável com informações adicionais para o cadastro do livro
+
+    arquivo.html:
+        Tornar "Minha Biblioteca" um título alterável
+        Configuração de visualizar e olcutar colunas da tabela
+
+Erros:
+    Campo de edição não atualiza para o status atual do livro
+    Tabela redimensiona de acordo com o filtro e pesquisa - criar tabela de tamanho fixo
