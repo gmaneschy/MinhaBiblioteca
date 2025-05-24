@@ -144,7 +144,7 @@ th:last-child {
 /* Estilo do botão de filtro */
 .filter-btn {
   position: absolute;
-  right: 53px; /* Distância da borda direita */
+  right: 5px; /* Distância da borda direita */
   top: 50%; /* Alinha verticalmente no meio */
   transform: translateY(-50%); /* Ajuste fino de centralização */
   padding: 5px 14px;

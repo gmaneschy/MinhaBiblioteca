@@ -25,26 +25,6 @@ h1 {
   color: #5d4037;
 }
 
-.livros-lista ul {
-  margin-top: 30px;
-  list-style-type: none;
-}
-
-.livros-lista li {
-  background: #ccf0b9;
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 8px;
-  line-height: 1.5;
-}
-
-.nenhum {
-  margin-top: 20px;
-  text-align: center;
-  font-style: italic;
-  color: #888;
-}
-
 /* Formulário */
 form label {
   font-weight: 600;
@@ -83,3 +63,4 @@ form button:hover {
   border: 1px solid #a67b5b;
   background-color: #6b4226;
 }
+

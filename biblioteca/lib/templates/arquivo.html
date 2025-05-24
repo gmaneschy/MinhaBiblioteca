@@ -319,27 +319,35 @@ document.getElementById('formAnotacoes').addEventListener('submit', function(e) 
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const searchBtn = document.getElementById('search-btn');
-  const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const clearBtn = document.getElementById('clear-filters');
 
-  // Animação de foco
-  searchBtn.addEventListener('click', function() {
-    searchInput.focus();
-  });
+    // Função unificada de filtragem
+    function filterTable() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const rows = document.querySelectorAll('tbody tr');
 
-  // Função de busca (adaptar para sua necessidade)
-  const searchForm = document.getElementById('search-form');
-  searchForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const searchTerm = searchInput.value.toLowerCase();
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    }
 
-    // Adapte esta parte para filtrar sua tabela
-    const rows = document.querySelectorAll('tbody tr');
-    rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      row.style.display = text.includes(searchTerm) ? '' : 'none';
+    // Eventos para a barra de pesquisa
+    searchInput.addEventListener('keyup', filterTable); // Filtra enquanto digita
+    searchBtn.addEventListener('click', filterTable);   // Filtra ao clicar no botão
+
+    // Evento para limpar filtros
+    clearBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        filterTable(); // Atualiza a tabela imediatamente
     });
-  });
+
+    // Foco no input quando clicar no botão de pesquisa
+    searchBtn.addEventListener('click', function() {
+        searchInput.focus();
+    });
 });
 </script>
 <script>
