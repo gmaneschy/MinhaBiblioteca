@@ -15,7 +15,7 @@ class Livro(models.Model):
     genero = models.CharField("Gênero", max_length=100, blank=True, null=True)
     npaginas = models.IntegerField("N° de Páginas", default=0, blank=True, null=True)
     ano = models.IntegerField("Ano de Publicação", default=0, blank=True, null=True)
-    preco = models.DecimalField("Preço", max_digits=10, decimal_places=2, default=0.00)
+    preco = models.DecimalField("Preço", max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
     status = models.CharField(
         "Status",
         max_length=20,

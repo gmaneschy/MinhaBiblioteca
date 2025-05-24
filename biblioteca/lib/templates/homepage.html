@@ -19,26 +19,18 @@
 
 <div class="container">
   <h1>Cadastro</h1>
-  <form method="post" id="cadastroForm">
-    {% csrf_token %}
-    <section class="dados-principais">
-        <div class="form-group">
-            <label>Título:</label>
-            {{ form.titulo }}
-        </div>
-        <div class="form-group">
-            <label>Autor:</label>
-            {{ form.autor }}
-        </div>
-        <div class="form-group">
-            <label>Editora:</label>
-            {{ form.editora }}
-        </div>
-    </section>
-
-      <button type="submit" id="btnCadastrar">Cadastrar</button>
-</form>
+    <form method="post" id="cadastroForm" action="{% url 'homepage' %}">
+        {% csrf_token %}
+        <section class="dados-principais">
+            <form id="livroForm" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <button type="submit" id="btnCadastrar">Cadastrar</button>
+            </form>
+        </section>
+    </form>
 </div>
+
 
 
 {% if messages %}

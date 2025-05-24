@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Livro
-from .forms import LivroForm
+from .forms import LivroForm, LivroForm2
 
 
 def cadastrar_livro(request):
@@ -15,7 +15,6 @@ def cadastrar_livro(request):
             return redirect('homepage')
     else:
         form = LivroForm()
-
     return render(request, 'homepage.html', {'form': form})
 
 
