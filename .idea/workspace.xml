@@ -7,6 +7,10 @@
     <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Pesquisar corrigido">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

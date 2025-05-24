@@ -2,31 +2,22 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib import messages
 from .models import Livro
-from .forms import LivroFormSimples, LivroFormAvancado
+from .forms import LivroForm
 
 
 def cadastrar_livro(request):
-    template_name = 'homepage.html'
-    form_simples = LivroFormSimples(request.POST or None)
-    form_avancado = LivroFormAvancado(request.POST or None)
-
     if request.method == 'POST':
-        if 'form_simples' in request.POST and form_simples.is_valid():
-            form_simples.save()
-            return redirect('arquivo')
-        elif 'form_avancado' in request.POST and form_avancado.is_valid():
-            form_avancado.save()
-            # Aqui você pode salvar as preferências de campos visíveis
-            request.session['mostrar_npaginas'] = form_avancado.cleaned_data['mostrar_npaginas']
-            request.session['mostrar_preco'] = form_avancado.cleaned_data['mostrar_preco']
-            return redirect('arquivo')
+        form = LivroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirecionar para evitar reenvio do formulário
+            return redirect('homepage')
+    else:
+        form = LivroForm()
 
-    return render(request, template_name, {
-        'form_simples': form_simples,
-        'form_avancado': form_avancado
-    })
+    return render(request, 'homepage.html', {'form': form})
+
 
 def arquivo(request):
     livros = Livro.objects.all()
