@@ -69,20 +69,29 @@
 <div class="arquivo">
 <h1>Minha Biblioteca</h1>
     <div class="search-container">
-    <form id="search-form" class="search-form">
-      <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
-      <button type="button" class="search-button" id="search-btn">
-        <i class="fas fa-search"></i>
-      </button>
-    </form>
-  </div>
+        <form id="search-form" class="search-form">
+            <input type="text" class="search-input" id="search-input" placeholder="Pesquisar em todas as colunas...">
+            <button type="button" class="search-button" id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+            <button type="button" class="btn" id="clear-filters" style="margin-left: 10px;">
+                Limpar Filtros
+            </button>
+        </form>
+    </div>
     <div class="tabela-container"> <!-- Adicione position: relative -->
     <table> <!-- Adicione borda na tabela -->
         <thead>
             <tr>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Título</th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Autor</th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Editora</th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Título
+                    <input type="text" class="column-filter" data-column="0" placeholder="Filtrar título...">
+                </th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Autor
+                    <input type="text" class="column-filter" data-column="1" placeholder="Filtrar autor...">
+                </th>
+                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Editora
+                <input type="text" class="column-filter" data-column="2" placeholder="Filtrar editora...">
+                </th>
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Ações</th>
             </tr>
         </thead>
@@ -329,6 +338,76 @@ document.addEventListener('DOMContentLoaded', function() {
       row.style.display = text.includes(searchTerm) ? '' : 'none';
     });
   });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Função de filtro global (barra de pesquisa principal)
+    const searchForm = document.getElementById('search-form');
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        filterTable();
+    });
+
+    // Função de filtro por coluna
+    document.querySelectorAll('.column-filter').forEach(input => {
+        input.addEventListener('keyup', function() {
+            filterTable();
+        });
+    });
+
+    // Função principal de filtragem
+    function filterTable() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const columnFilters = [
+            document.querySelector('.column-filter[data-column="0"]').value.toLowerCase(),
+            document.querySelector('.column-filter[data-column="1"]').value.toLowerCase(),
+            document.querySelector('.column-filter[data-column="2"]').value.toLowerCase()
+        ];
+
+        const rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            let shouldShow = true;
+
+            // Verifica filtro global
+            if (searchTerm) {
+                const rowText = row.textContent.toLowerCase();
+                if (!rowText.includes(searchTerm)) {
+                    shouldShow = false;
+                }
+            }
+
+            // Verifica filtros por coluna
+            columnFilters.forEach((filter, index) => {
+                if (filter && index < cells.length) {
+                    const cellText = cells[index].textContent.toLowerCase();
+                    if (!cellText.includes(filter)) {
+                        shouldShow = false;
+                    }
+                }
+            });
+
+            row.style.display = shouldShow ? '' : 'none';
+        });
+    }
+});
+</script>
+<script>
+document.getElementById('clear-filters').addEventListener('click', function() {
+    // Limpa a pesquisa global
+    document.getElementById('search-input').value = '';
+
+    // Limpa os filtros de coluna
+    document.querySelectorAll('.column-filter').forEach(input => {
+        input.value = '';
+    });
+
+    // Mostra todas as linhas
+    document.querySelectorAll('tbody tr').forEach(row => {
+        row.style.display = '';
+    });
 });
 </script>
 

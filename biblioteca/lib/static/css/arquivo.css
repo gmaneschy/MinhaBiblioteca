@@ -43,7 +43,7 @@ th, td {
 
 /* Cabeçalho da tabela sticky */
 th {
-  position: sticky;
+  position: relative;
   top: 0;
   background: #e0e4cc;
   z-index: 5; /* Menor que o título e busca */
@@ -115,4 +115,15 @@ h1 {
 
 .search-button:hover {
   color: #6b4226;
+}
+
+.column-filter {
+    width: 90%;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #8b5e3c;
+    border-radius: 4px;
+    background-color: #fff8dc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
 }

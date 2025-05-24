@@ -11,7 +11,7 @@ class Livro(models.Model):
     titulo = models.CharField("Título", max_length=100)
     autor = models.CharField("Autor", max_length=100)
     editora = models.CharField("Editora", max_length=100)
-    tradudor = models.CharField("Tradutor", max_length=100, blank=True, null=True)
+    tradutor = models.CharField("Tradutor", max_length=100, blank=True, null=True)
     genero = models.CharField("Gênero", max_length=100, blank=True, null=True)
     npaginas = models.IntegerField("N° de Páginas", default=0, blank=True, null=True)
     ano = models.IntegerField("Ano de Publicação", default=0, blank=True, null=True)
@@ -25,5 +25,5 @@ class Livro(models.Model):
     anotacoes = models.TextField("Anotações", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.titulo} - {self.autor} - {self.editora} - {self.tradudor} - {self.genero} - {self.npaginas} - {self.ano} - {self.preco} - {self.status} - {self.anotacoes}"
+        return f"{self.titulo} - {self.autor} - {self.editora} - {self.tradutor} - {self.genero} - {self.npaginas} - {self.ano} - {self.preco} - {self.status} - {self.anotacoes}"
 
