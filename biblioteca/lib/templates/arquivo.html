@@ -91,8 +91,8 @@
                 </th>
                 <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">
                     Ações
-                    <button type="button" class="filter-btn" id="clear-filters" title="Limpar todos os filtros">
-                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                    <button type="button" class="filter-btn" id="clear-filters">
+                        <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
                     </button>
                 </th>
             </tr>
@@ -107,7 +107,7 @@
                     <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}')">Editar</a>
                     <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
                     <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
-                        <i class="fa-solid fa-quote-left" style="color: #ffffff"></i>
+                        <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
                     </a>
                 </td>
               </tr>
