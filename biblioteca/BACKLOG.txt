@@ -7,7 +7,7 @@ Fazer:
 
     arquivo.html:
         Tornar "Minha Biblioteca" um título alterável
-        Configuração de visualizar e olcutar colunas da tabela
+        Configuração de visualizar e ocultar colunas da tabela
 
 Erros:
     Campo de edição não atualiza para o status atual do livro
