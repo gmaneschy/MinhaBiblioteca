@@ -5,6 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Livro
 from .forms import LivroForm
 
+def login(request):
+    return render(request, 'login.html')
 
 def cadastrar_livro(request):
     if request.method == 'POST':
@@ -16,7 +18,6 @@ def cadastrar_livro(request):
     else:
         form = LivroForm()
     return render(request, 'homepage.html', {'form': form})
-
 
 def arquivo(request):
     livros = Livro.objects.all()
@@ -49,7 +50,6 @@ def deletar_livro(request, livro_id):
         except ObjectDoesNotExist:
             return JsonResponse({'erro': 'Livro não encontrado'}, status=404)
     return JsonResponse({'erro': 'Método não permitido'}, status=405)
-
 
 @csrf_protect
 def editar_anotacoes(request):
