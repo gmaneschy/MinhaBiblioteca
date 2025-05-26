@@ -3,71 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <title>Biblioteca</title>
-<style>
-.btn {
-  background-color: #8b5e3c;
-  color: white;
-  border: 1px solid #a67b5b;
-  padding: 5px 14px;
-  margin: 2px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Courier New', Courier, monospace;
-  text-decoration: none;
+    <style>
+        .btn {
+            background-color: #8b5e3c;
+            color: white;
+            border: 1px solid #a67b5b;
+            padding: 5px 14px;
+            margin: 2px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+        }
 
-}
+        .btn:hover {
+            background-color: #6b4226;
+        }
 
-.btn:hover {
-  background-color: #6b4226;
-}
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  font-family: 'Courier New', Courier, monospace;
-}
+        .modal-conteudo {
+            background: #fdf6e3;
+            border: 3px solid #5d4037;
+            padding: 20px;
+            margin: 10% auto;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
 
-.modal-conteudo {
-  background: #fdf6e3;
-  border: 3px solid #5d4037;
-  padding: 20px;
-  margin: 10% auto;
-  width: 350px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
+        .modal-conteudo label {
+            display: block;
+            margin-top: 10px;
+        }
 
-.modal-conteudo label {
-  display: block;
-  margin-top: 10px;
-}
+        .modal-conteudo input {
+            width: 95%;
+            padding: 6px;
+            margin-top: 5px;
+            border: 1px solid #a67b5b;
+            border-radius: 4px;
+            background-color: #fff8dc;
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-.modal-conteudo input {
-  width: 100%;
-  padding: 6px;
-  margin-top: 5px;
-  border: 1px solid #a67b5b;
-  border-radius: 4px;
-  background-color: #fff8dc;
-  font-family: 'Courier New', Courier, monospace;
-}
+        .modal-conteudo button {
+            margin-top: 15px;
+        }
 
-.modal-conteudo button {
-  margin-top: 15px;
-}
-</style>
+        .column-filter {
+            width: 80%;
+            padding: 4px;
+            margin-top: 5px;
+            border: 1px solid #a67b5b;
+            border-radius: 4px;
+            background-color: #fff8dc;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background: #e0e4cc;
+            z-index: 10;
+        }
+
+        .search-container {
+            margin: 15px 0;
+        }
+
+        .search-input {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #a67b5b;
+            border-radius: 4px;
+        }
+
+        .search-button {
+            padding: 8px 15px;
+            background-color: #8b5e3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 5px;
+        }
+
+        .config-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 5px;
+        }
+    </style>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 </head>
 <body>
 <div class="arquivo">
-<h1>Minha Biblioteca</h1>
+    <h1>Minha Biblioteca</h1>
+
     <div class="search-container">
         <form id="search-form" class="search-form">
             <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
@@ -76,25 +140,43 @@
             </button>
         </form>
     </div>
-    <div class="tabela-container"> <!-- Adicione position: relative -->
+    <div class="tabela-container">
         <table>
             <thead>
                 <tr>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Título
-                    <input type="text" class="column-filter" data-column="0">
-                </th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Autor
-                    <input type="text" class="column-filter" data-column="1">
-                </th>
-                <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">Editora
-                    <input type="text" class="column-filter" data-column="2">
-                </th>
-                    <th style="position: sticky; top: 0; background: #e0e4cc; z-index: 2;">
-                    Ações
-                    <button type="button" class="filter-btn" id="clear-filters">
-                        <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
-                    </button>
-                </th>
+                    <th>Título
+                        <input type="text" class="column-filter" data-column="0">
+                    </th>
+                    <th>Autor
+                        <input type="text" class="column-filter" data-column="1">
+                    </th>
+                    <th>Editora
+                        <input type="text" class="column-filter" data-column="2">
+                    </th>
+                    <th>Tradutor
+                        <input type="text" class="column-filter" data-column="3">
+                    </th>
+                    <th>Gênero
+                        <input type="text" class="column-filter" data-column="4">
+                    </th>
+                    <th>N° de Páginas
+                        <input type="text" class="column-filter" data-column="5">
+                    </th>
+                    <th>Ano
+                        <input type="text" class="column-filter" data-column="6">
+                    </th>
+                    <th>Preço
+                        <input type="text" class="column-filter" data-column="7">
+                    </th>
+                    <th style="width: 20%">
+                        Ações
+                        <button type="button" class="filter-btn" id="clear-filters">
+                            <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
+                        </button>
+                        <button id="config-btn" class="config-btn" title="Configurar Colunas">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -103,8 +185,13 @@
                     <td>{{ livro.titulo }}</td>
                     <td>{{ livro.autor }}</td>
                     <td>{{ livro.editora }}</td>
+                    <td>{{ livro.tradutor }}</td>
+                    <td>{{ livro.genero }}</td>
+                    <td>{{ livro.npaginas }}</td>
+                    <td>{{ livro.ano }}</td>
+                    <td>{{ livro.preco }}</td>
                     <td>
-                        <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}')">Editar</a>
+                        <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')">Editar</a>
                         <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
                         <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
                             <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
@@ -117,320 +204,326 @@
     </div>
 </div>
 
-
 <!-- Modal para Edição -->
 <div id="modal" class="modal">
     <div class="modal-conteudo">
-      <form id="form-editar" onsubmit="salvarLivro(event)">
-          {% csrf_token %}
-          <input type="hidden" name="id" id="modal-id">
-          <label for="modal-titulo">Título:</label>
-          <input type="text" name="titulo" id="modal-titulo">
-          <label for="modal-autor">Autor:</label>
-          <input type="text" name="autor" id="modal-autor">
-          <label for="modal-editora">Editora:</label>
-          <input type="text" name="editora" id="modal-editora">
-          <button type="submit" class="btn">Salvar</button>
-          <button type="button" class="btn" onclick="fecharModalEdicao()">Cancelar</button>
+        <form id="form-editar" onsubmit="salvarLivro(event)">
+            {% csrf_token %}
+            <input type="hidden" name="id" id="modal-id">
+            <label for="modal-titulo">Título:</label>
+            <input type="text" name="titulo" id="modal-titulo" required>
+            <label for="modal-autor">Autor:</label>
+            <input type="text" name="autor" id="modal-autor" required>
+            <label for="modal-editora">Editora:</label>
+            <input type="text" name="editora" id="modal-editora" required>
+            <label for="modal-tradutor">Tradutor:</label>
+            <input type="text" name="tradutor" id="modal-tradutor">
+            <label for="modal-genero">Gênero:</label>
+            <input type="text" name="genero" id="modal-genero">
+            <label for="modal-npaginas">N° de Páginas:</label>
+            <input type="number" name="npaginas" id="modal-npaginas">
+            <label for="modal-ano">Ano:</label>
+            <input type="number" name="ano" id="modal-ano" min="0000" max="9999">
+            <label for="modal-preco">Preço:</label>
+            <input type="text" name="preco" id="modal-preco">
+            <button type="submit" class="btn">Salvar</button>
+            <button type="button" class="btn" onclick="fecharModalEdicao()">Cancelar</button>
         </form>
     </div>
 </div>
 
 <!-- Modal para Anotações -->
 <div id="modalAnotacoes" class="modal">
-  <div class="modal-conteudo">
-    <h3>Anotações</h3>
-    <form id="formAnotacoes" method="POST" action="{% url 'editar_anotacoes' %}">
-      {% csrf_token %}
-      <input type="hidden" name="livro_id" id="livro_id">
-      <textarea name="anotacoes" id="anotacoes" rows="8" style="width: 100%"></textarea>
-      <br>
-      <button type="submit" class="btn">Salvar</button>
-      <button type="button" class="btn" onclick="fecharModalAnotacoes()">Cancelar</button>
-    </form>
-  </div>
+    <div class="modal-conteudo">
+        <h3>Anotações</h3>
+        <form id="formAnotacoes" method="POST" action="{% url 'editar_anotacoes' %}">
+            {% csrf_token %}
+            <input type="hidden" name="livro_id" id="livro_id">
+            <textarea name="anotacoes" id="anotacoes" rows="8" style="width: 100%"></textarea>
+            <br>
+            <button type="submit" class="btn">Salvar</button>
+            <button type="button" class="btn" onclick="fecharModalAnotacoes()">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para seleção de colunas -->
+<div id="modalConfig" class="modal">
+    <div class="modal-conteudo">
+        <h3>Selecionar colunas visíveis</h3>
+        <form>
+            <label><input type="checkbox" class="col-toggle" data-col="0" checked> Título</label>
+            <label><input type="checkbox" class="col-toggle" data-col="1" checked> Autor</label>
+            <label><input type="checkbox" class="col-toggle" data-col="2" checked> Editora</label>
+            <label><input type="checkbox" class="col-toggle" data-col="3" checked> Tradutor</label>
+            <label><input type="checkbox" class="col-toggle" data-col="4" checked> Gênero</label>
+            <label><input type="checkbox" class="col-toggle" data-col="5" checked> N° de Páginas</label>
+            <label><input type="checkbox" class="col-toggle" data-col="6" checked> Ano</label>
+            <label><input type="checkbox" class="col-toggle" data-col="7" checked> Preço</label>
+            <div style="margin-top: 20px;">
+                <button type="button" class="btn" onclick="fecharModalConfig()">Fechar</button>
+                <button type="button" class="btn" onclick="resetarColunas()">Resetar Padrão</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-    function abrirModal(id, titulo, autor, editora) {
-      document.getElementById('modal').style.display = 'block';
-      document.getElementById('modal-id').value = id;
-      document.getElementById('modal-titulo').value = titulo;
-      document.getElementById('modal-autor').value = autor;
-      document.getElementById('modal-editora').value = editora;
+    // Funções do Modal de Edição
+    function abrirModal(id, titulo, autor, editora, tradutor, genero, npaginas, ano, preco) {
+        document.getElementById('modal').style.display = 'block';
+        document.getElementById('modal-id').value = id;
+        document.getElementById('modal-titulo').value = titulo;
+        document.getElementById('modal-autor').value = autor;
+        document.getElementById('modal-editora').value = editora;
+        document.getElementById('modal-tradutor').value = tradutor;
+        document.getElementById('modal-genero').value = genero;
+        document.getElementById('modal-npaginas').value = npaginas;
+        document.getElementById('modal-ano').value = ano;
+        document.getElementById('modal-preco').value = preco;
     }
 
     function fecharModalEdicao() {
-      document.getElementById('modal').style.display = 'none';
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    function salvarLivro(event) {
+        event.preventDefault();
+
+        const formData = {
+            id: document.getElementById('modal-id').value,
+            titulo: document.getElementById('modal-titulo').value,
+            autor: document.getElementById('modal-autor').value,
+            editora: document.getElementById('modal-editora').value,
+            tradutor: document.getElementById('modal-tradutor').value,
+            genero: document.getElementById('modal-genero').value,
+            npaginas: document.getElementById('modal-npaginas').value,
+            ano: document.getElementById('modal-ano').value,
+            preco: document.getElementById('modal-preco').value
+        };
+
+        // Validação básica
+        if (!formData.titulo || !formData.autor || !formData.editora) {
+            alert('Por favor, preencha pelo menos Título, Autor e Editora.');
+            return;
+        }
+
+        fetch(`/editar/${formData.id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Erro na resposta do servidor');
+            return response.json();
+        })
+        .then(data => {
+            if (data.id) {
+                const linha = document.querySelector(`tr[data-id='${data.id}']`);
+                if (linha) {
+                    linha.cells[0].textContent = data.titulo;
+                    linha.cells[1].textContent = data.autor;
+                    linha.cells[2].textContent = data.editora;
+                    linha.cells[3].textContent = data.tradutor;
+                    linha.cells[4].textContent = data.genero;
+                    linha.cells[5].textContent = data.npaginas;
+                    linha.cells[6].textContent = data.ano;
+                    linha.cells[7].textContent = data.preco;
+                }
+                fecharModalEdicao();
+            } else {
+                alert('Erro ao salvar: ' + (data.error || ''));
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao salvar livro: ' + error.message);
+        });
+    }
+
+    // Funções do Modal de Anotações
+    function abrirModalAnotacoes(id, anotacoes) {
+        document.getElementById('livro_id').value = id;
+        document.getElementById('anotacoes').value = anotacoes !== 'None' ? anotacoes : '';
+        document.getElementById('modalAnotacoes').style.display = 'block';
     }
 
     function fecharModalAnotacoes() {
-      document.getElementById('modalAnotacoes').style.display = 'none';
+        document.getElementById('modalAnotacoes').style.display = 'none';
     }
 
-    window.onclick = function(event) {
-      const modal = document.getElementById('modal');
-      const modalAnotacoes = document.getElementById('modalAnotacoes');
-
-      if (event.target === modal) {
-        fecharModalEdicao();
-      }
-      if (event.target === modalAnotacoes) {
-        fecharModalAnotacoes();
-      }
-    }
-</script>
-<script>
-    function validarFormulario() {
-      const titulo = document.getElementById('modal-titulo').value.trim();
-      const autor = document.getElementById('modal-autor').value.trim();
-      const editora = document.getElementById('modal-editora').value.trim();
-
-      if (!titulo || !autor || !editora) {
-        alert('Por favor, preencha todos os campos.');
-        return false;
-      }
-      return true;
-    }
-</script>
-<script>
-function salvarLivro(event) {
-    event.preventDefault();
-
-    const id = document.getElementById('modal-id').value;
-    const titulo = document.getElementById('modal-titulo').value;
-    const autor = document.getElementById('modal-autor').value;
-    const editora = document.getElementById('modal-editora').value;
-
-    if (!validarFormulario()) return;
-
-    fetch(`/editar/${id}/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-        },
-        body: new URLSearchParams({
-            'titulo': titulo,
-            'autor': autor,
-            'editora': editora
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na resposta do servidor');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.id) {
-            const linha = document.querySelector(`tr[data-id='${data.id}']`);
-            if (!linha) {
-                throw new Error(`Linha com ID ${data.id} não encontrada na tabela`);
-            }
-
-            // Atualização mais segura dos campos
-            const campos = ['titulo', 'autor', 'editora'];
-            campos.forEach((campo, index) => {
-                const celula = linha.querySelector(`td[data-field='${campo}']`) || linha.children[index];
-                if (celula) {
-                    celula.textContent = data[campo];
-                }
-            });
-
-            fecharModalEdicao();
-        } else {
-            alert('Erro ao salvar: ' + (data.error || ''));
-        }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert('Erro ao salvar livro: ' + error.message);
-    });
-}
-</script>
-<script>
-function excluirLivro(id, botao) {
-    if (!confirm("Tem certeza que deseja excluir este livro?")) return;
-
-    fetch(`/deletar/${id}/`, {
-      method: 'POST',
-      headers: {
-        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === 'ok') {
-        const linha = botao.closest('tr');
-        linha.remove();
-      } else {
-        alert('Erro ao excluir livro');
-      }
-    })
-    .catch(error => {
-      console.error('Erro:', error);
-      alert('Erro ao excluir livro.');
-    });
-  }
-</script>
-<script>
-function abrirModalAnotacoes(id, anotacoes) {
-    document.getElementById('livro_id').value = id;
-    document.getElementById('anotacoes').value = anotacoes !== 'None' ? anotacoes : '';
-    document.getElementById('modalAnotacoes').style.display = 'block';
-}
-
-document.getElementById('formAnotacoes').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const livroId = document.getElementById('livro_id').value;
-    const anotacoes = document.getElementById('anotacoes').value;
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-    fetch(this.action, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': csrfToken,
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            'livro_id': livroId,
-            'anotacoes': anotacoes
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro no servidor');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.status === 'ok') {
-            // Atualiza o botão de anotações com os novos dados
-            const anotacaoBtn = document.querySelector(`a[onclick*="abrirModalAnotacoes(${livroId}, "]`);
-            if (anotacaoBtn) {
-                anotacaoBtn.setAttribute(
-                    'onclick',
-                    `abrirModalAnotacoes(${livroId}, '${anotacoes.replace(/'/g, "\\'")}')`
-                );
-            }
-            fecharModalAnotacoes();
-            alert('Anotações salvas com sucesso!');
-        } else {
-            throw new Error(data.erro || 'Erro ao salvar anotações');
-        }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert(error.message);
-    });
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchBtn = document.getElementById('search-btn');
-    const clearBtn = document.getElementById('clear-filters');
-
-    // Função unificada de filtragem
-    function filterTable() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const rows = document.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchTerm) ? '' : 'none';
-        });
-    }
-
-    // Eventos para a barra de pesquisa
-    searchInput.addEventListener('keyup', filterTable); // Filtra enquanto digita
-    searchBtn.addEventListener('click', filterTable);   // Filtra ao clicar no botão
-
-    // Evento para limpar filtros
-    clearBtn.addEventListener('click', function() {
-        searchInput.value = '';
-        filterTable(); // Atualiza a tabela imediatamente
-    });
-
-    // Foco no input quando clicar no botão de pesquisa
-    searchBtn.addEventListener('click', function() {
-        searchInput.focus();
-    });
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Função de filtro global (barra de pesquisa principal)
-    const searchForm = document.getElementById('search-form');
-    searchForm.addEventListener('submit', function(e) {
+    document.getElementById('formAnotacoes').addEventListener('submit', function(e) {
         e.preventDefault();
-        filterTable();
+
+        const formData = new FormData(this);
+        const livroId = formData.get('livro_id');
+        const anotacoes = formData.get('anotacoes');
+
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Erro no servidor');
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'ok') {
+                const anotacaoBtn = document.querySelector(`a[onclick*="abrirModalAnotacoes(${livroId}, "]`);
+                if (anotacaoBtn) {
+                    anotacaoBtn.setAttribute('onclick', `abrirModalAnotacoes(${livroId}, '${anotacoes.replace(/'/g, "\\'")}')`);
+                }
+                fecharModalAnotacoes();
+                alert('Anotações salvas com sucesso!');
+            } else {
+                throw new Error(data.erro || 'Erro ao salvar anotações');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert(error.message);
+        });
     });
 
-    // Função de filtro por coluna
-    document.querySelectorAll('.column-filter').forEach(input => {
-        input.addEventListener('keyup', function() {
+    // Funções do Modal de Configuração
+    document.getElementById('config-btn').addEventListener('click', () => {
+        document.getElementById('modalConfig').style.display = 'block';
+    });
+
+    function fecharModalConfig() {
+        document.getElementById('modalConfig').style.display = 'none';
+    }
+
+    function resetarColunas() {
+        const config = {};
+        for (let i = 0; i < 8; i++) {
+            config[i] = true;
+        }
+        localStorage.setItem('colunasVisiveis', JSON.stringify(config));
+        aplicarPreferenciasColunas();
+    }
+
+    // Configuração de colunas visíveis
+    function aplicarPreferenciasColunas() {
+        const config = JSON.parse(localStorage.getItem('colunasVisiveis')) || {};
+
+        // Inicializa com true para todas as colunas se não existir configuração
+        for (let i = 0; i < 8; i++) {
+            if (config[i] === undefined) config[i] = true;
+        }
+
+        // Aplica aos checkboxes e colunas
+        document.querySelectorAll('.col-toggle').forEach(checkbox => {
+            const colIndex = parseInt(checkbox.dataset.col);
+            checkbox.checked = config[colIndex];
+
+            document.querySelectorAll(`th:nth-child(${colIndex + 1}), td:nth-child(${colIndex + 1})`).forEach(el => {
+                el.style.display = config[colIndex] ? '' : 'none';
+            });
+        });
+
+        localStorage.setItem('colunasVisiveis', JSON.stringify(config));
+    }
+
+    document.querySelectorAll('.col-toggle').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const colIndex = parseInt(this.dataset.col);
+            const config = JSON.parse(localStorage.getItem('colunasVisiveis')) || {};
+            config[colIndex] = this.checked;
+            localStorage.setItem('colunasVisiveis', JSON.stringify(config));
+            aplicarPreferenciasColunas();
+        });
+    });
+
+    // Filtros de pesquisa
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const columnFilters = Array.from({length: 8}, (_, i) =>
+            document.querySelector(`.column-filter[data-column="${i}"]`));
+
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filters = columnFilters.map(input => input.value.toLowerCase());
+
+            document.querySelectorAll('tbody tr').forEach(row => {
+                let shouldShow = true;
+                const cells = row.querySelectorAll('td');
+
+                // Filtro global
+                if (searchTerm) {
+                    const rowText = row.textContent.toLowerCase();
+                    if (!rowText.includes(searchTerm)) shouldShow = false;
+                }
+
+                // Filtros por coluna
+                filters.forEach((filter, index) => {
+                    if (filter && index < cells.length) {
+                        const cellText = cells[index].textContent.toLowerCase();
+                        if (!cellText.includes(filter)) shouldShow = false;
+                    }
+                });
+
+                row.style.display = shouldShow ? '' : 'none';
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', filterTable);
+        columnFilters.forEach(input => input.addEventListener('input', filterTable));
+
+        // Botão limpar filtros
+        document.getElementById('clear-filters').addEventListener('click', function() {
+            searchInput.value = '';
+            columnFilters.forEach(input => input.value = '');
             filterTable();
         });
+
+        // Aplica as configurações de colunas ao carregar
+        aplicarPreferenciasColunas();
     });
 
-    // Função principal de filtragem
-    function filterTable() {
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
-        const columnFilters = [
-            document.querySelector('.column-filter[data-column="0"]').value.toLowerCase(),
-            document.querySelector('.column-filter[data-column="1"]').value.toLowerCase(),
-            document.querySelector('.column-filter[data-column="2"]').value.toLowerCase()
-        ];
+    // Fechar modais ao clicar fora
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('modal')) {
+            fecharModalEdicao();
+        }
+        if (event.target === document.getElementById('modalAnotacoes')) {
+            fecharModalAnotacoes();
+        }
+        if (event.target === document.getElementById('modalConfig')) {
+            fecharModalConfig();
+        }
+    }
 
-        const rows = document.querySelectorAll('tbody tr');
+    // Função para excluir livro
+    function excluirLivro(id, botao) {
+        if (!confirm("Tem certeza que deseja excluir este livro?")) return;
 
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            let shouldShow = true;
-
-            // Verifica filtro global
-            if (searchTerm) {
-                const rowText = row.textContent.toLowerCase();
-                if (!rowText.includes(searchTerm)) {
-                    shouldShow = false;
-                }
+        fetch(`/deletar/${id}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
             }
-
-            // Verifica filtros por coluna
-            columnFilters.forEach((filter, index) => {
-                if (filter && index < cells.length) {
-                    const cellText = cells[index].textContent.toLowerCase();
-                    if (!cellText.includes(filter)) {
-                        shouldShow = false;
-                    }
-                }
-            });
-
-            row.style.display = shouldShow ? '' : 'none';
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                botao.closest('tr').remove();
+            } else {
+                alert('Erro ao excluir livro');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao excluir livro.');
         });
     }
-});
 </script>
-<script>
-document.getElementById('clear-filters').addEventListener('click', function() {
-    // Limpa a pesquisa global
-    document.getElementById('search-input').value = '';
-
-    // Limpa os filtros de coluna
-    document.querySelectorAll('.column-filter').forEach(input => {
-        input.value = '';
-    });
-
-    // Mostra todas as linhas
-    document.querySelectorAll('tbody tr').forEach(row => {
-        row.style.display = '';
-    });
-});
-</script>
-
 </body>
-
 </html>

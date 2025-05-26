@@ -24,7 +24,10 @@
         <section class="dados-principais">
             <form id="livroForm" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.titulo }}
+                {{ form.autor }}
+                {{ form.editora }}
+                {{ form.tradutor }}
             <button type="submit" id="btnCadastrar">Cadastrar</button>
             </form>
         </section>

@@ -145,7 +145,7 @@ th:last-child {
 /* Estilo do botão de filtro */
 .filter-btn {
   position: absolute;
-  right: 5px; /* Distância da borda direita */
+  right: 2%; /* Distância da borda direita */
   top: 50%; /* Alinha verticalmente no meio */
   transform: translateY(-50%); /* Ajuste fino de centralização */
   padding: 5px 14px;
@@ -158,6 +158,25 @@ th:last-child {
 }
 
 .filter-btn:hover {
+  background-color: #6b4226;
+}
+
+
+.config-btn {
+  position: absolute;
+  right: 16%; /* Distância da borda direita */
+  top: 50%; /* Alinha verticalmente no meio */
+  transform: translateY(-50%); /* Ajuste fino de centralização */
+  padding: 5px 14px;
+  font-size: 12px;
+  background-color: #8b5e3c;
+  color: white;
+  border: 1px solid #a67b5b;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.config-btn:hover {
   background-color: #6b4226;
 }
 

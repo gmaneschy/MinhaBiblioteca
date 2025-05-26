@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Livro
 from .forms import LivroForm
+import json
 
 def login(request):
     return render(request, 'login.html')
@@ -25,17 +26,28 @@ def arquivo(request):
     return render(request, 'arquivo.html', context)
 
 def editar_livro(request, livro_id):
-    livro = Livro.objects.get(id=livro_id)
     if request.method == 'POST':
-        livro.titulo = request.POST.get('titulo')
-        livro.autor = request.POST.get('autor')
-        livro.editora = request.POST.get('editora')
+        data = json.loads(request.body)  # <- Aqui está a mudança
+        livro = Livro.objects.get(id=livro_id)
+        livro.titulo = data.get('titulo')
+        livro.autor = data.get('autor')
+        livro.editora = data.get('editora')
+        livro.tradutor = data.get('tradutor')
+        livro.genero = data.get('genero')
+        livro.npaginas = data.get('npaginas')
+        livro.ano = data.get('ano')
+        livro.preco = data.get('preco')
         livro.save()
         return JsonResponse({
             'id': livro.id,
             'titulo': livro.titulo,
             'autor': livro.autor,
-            'editora': livro.editora
+            'editora': livro.editora,
+            'tradutor': livro.tradutor,
+            'genero': livro.genero,
+            'npaginas': livro.npaginas,
+            'ano': livro.ano,
+            'preco': livro.preco
         })
     else:
         return JsonResponse({'erro': 'Método não permitido'}, status=405)
