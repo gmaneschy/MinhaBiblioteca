@@ -5,6 +5,7 @@ body {
   align-items: center;
   height: 100vh; /* necessário para centralização vertical */
   margin: 0;
+  background-color: #fcfaf2;
 }
 
 .arquivo {
@@ -13,7 +14,6 @@ body {
   padding: 70px 20px 20px 20px; /* Espaço para a busca */
   border-radius: 15px;
   border: 3px solid #8b5e3c;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9);
   width: 90vw; /* ocupa 90% da largura da viewport */
   height: 80vh; /* ocupa 90% da largura da viewport */
   margin: 40px auto; /* centraliza horizontalmente */

@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    {% load static%}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
+<div class="login-container">
+    <div class="tabs">
+        <button class="tab-button active" data-tab="login">Login</button>
+        <button class="tab-button" data-tab="registro">Criar Conta</button>
+    </div>
+
+    <div class="tab-content" id="login">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login">
+            {{ login_form.as_p }}
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <div class="tab-content hidden" id="registro">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="registro">
+            {{ registro_form.as_p }}
+            <button type="submit">Criar Conta</button>
+        </form>
+    </div>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<script>
+document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const tab = button.getAttribute('data-tab')
+
+        // Ativa/desativa botões
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'))
+        button.classList.add('active')
+
+        // Mostra/esconde conteúdo
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden')
+        })
+        document.getElementById(tab).classList.remove('hidden')
+    })
+})
+</script>
 </body>
 </html>

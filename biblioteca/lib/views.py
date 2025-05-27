@@ -2,12 +2,41 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Livro
-from .forms import LivroForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login
+from .models import Livro, Login
+from .forms import LivroForm, LoginForm, RegistroForm
 import json
 
-def login(request):
-    return render(request, 'login.html')
+
+def login_registro_view(request):
+    login_form = LoginForm()
+    registro_form = RegistroForm()
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'login':
+            login_form = LoginForm(request.POST)
+            if login_form.is_valid():
+                email = login_form.cleaned_data['email']
+                senha = login_form.cleaned_data['senha']
+                try:
+                    Login.objects.get(email=email, senha=senha)
+                    return redirect('homepage')
+                except Login.DoesNotExist:
+                    messages.error(request, 'Email ou senha inválidos.')
+
+        elif action == 'registro':
+            registro_form = RegistroForm(request.POST)
+            if registro_form.is_valid():
+                registro_form.save()
+                return redirect('login')
+
+    return render(request, 'login.html', {
+        'login_form': login_form,
+        'registro_form': registro_form
+    })
 
 def cadastrar_livro(request):
     if request.method == 'POST':

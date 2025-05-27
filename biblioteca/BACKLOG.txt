@@ -1,9 +1,16 @@
 Fazer:
     Navbar
     Tela de login e cadastro
+        Melhorar tela de cadastro
+        Fazer validação de e-mail
+        Fazer validação de senha
+        Rever exibição de erros
+
 
     homepage.html:
         Reformular front-end da homepage
+        Colocar campos pendentes no formulário
+
 
     arquivo.html:
         Tornar "Minha Biblioteca" um título alterável
