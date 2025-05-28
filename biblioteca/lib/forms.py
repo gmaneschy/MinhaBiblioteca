@@ -24,7 +24,7 @@ class LivroForm(forms.ModelForm):
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Nome do usuário', min_length=4, max_length=150)
     email = forms.EmailField(label='E-mail')
-    password1 = forms.CharField(label='Senha', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Senha', min_length=8, widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
 
     def clean_username(self):
@@ -38,7 +38,7 @@ class CustomUserCreationForm(forms.Form):
         email = self.cleaned_data['email'].lower()
         r = User.objects.filter(email=email)
         if r.count():
-            raise ValidationError("Conta com este e-mail já existe")
+            raise ValidationError("Já existe uma conta com este e-mail")
         return email
 
     def clean_password2(self):

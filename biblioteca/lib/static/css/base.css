@@ -22,10 +22,6 @@ position: absolute;
 transform: translate(-50%, -50%);
 }
 
-h1 {
-text-align: center;
-}
-
 form label {
   font-weight: 600;
   margin-top: 15px;
