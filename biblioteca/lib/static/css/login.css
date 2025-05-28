@@ -37,8 +37,8 @@ form select,
 form textarea {
   width: 95%;
   padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 1px solid #a67b5b;
   border-radius: 8px;
   font-size: 15px;
@@ -61,7 +61,14 @@ form textarea {
     background-color: #a67b5b;
     color: white;
     font-weight: bold;
-    border-radius: 8px 8px 8px 8px;
+}
+
+.tab-button:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.tab-button:last-child {
+    border-radius: 0 8px 8px 0;
 }
 
 .tab-button.active {
@@ -92,4 +99,17 @@ form button {
 form button:hover {
   border: 1px solid #a67b5b;
   background-color: #6b4226;
+}
+
+
+a {
+  color: #5d4037;          /* Usa a cor herdada do body */
+  text-decoration: none;   /* Remove o sublinhado */
+  font-size: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline; /* Efeito sutil no hover */
 }

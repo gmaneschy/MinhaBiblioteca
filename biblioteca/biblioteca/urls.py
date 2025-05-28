@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from lib import views
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +28,8 @@ urlpatterns = [
     path('deletar/<int:livro_id>/', views.deletar_livro, name='deletar_livro'),
     path('editar-anotacoes/', views.editar_anotacoes, name='editar_anotacoes'),
     path('login/', views.login_page, name='login'),
+    path('senha-reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('senha-reset/enviado/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('senha-reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('senha-reset/feito/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
