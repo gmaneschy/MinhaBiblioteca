@@ -53,7 +53,9 @@ class CustomUserCreationForm(forms.Form):
     def save(self, commit=True):
         user = User(
             username=self.cleaned_data['username'],
-            email=self.cleaned_data['email']
+            email=self.cleaned_data['email'],
+            is_staff=False,  # Garante que não é staff/admin
+            is_superuser=False  # Garante que não é superuser
         )
         user.set_password(self.cleaned_data['password1'])
 
