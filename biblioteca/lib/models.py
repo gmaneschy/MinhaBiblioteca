@@ -26,10 +26,3 @@ class Livro(models.Model):
 
     def __str__(self):
         return f"{self.titulo} - {self.autor} - {self.editora} - {self.tradutor} - {self.genero} - {self.npaginas} - {self.ano} - {self.preco} - {self.status} - {self.anotacoes}"
-
-class Login(models.Model):
-    email = models.CharField(max_length=100)
-    senha = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f"{self.email} - {self.senha}"

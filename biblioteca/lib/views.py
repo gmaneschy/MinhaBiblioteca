@@ -2,41 +2,41 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import login as auth_login
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
-from .models import Livro, Login
-from .forms import LivroForm, LoginForm, RegistroForm
+from .models import Livro
+from .forms import LivroForm, CustomUserCreationForm, CustomAuthenticationForm
 import json
 
 
-def login_registro_view(request):
-    login_form = LoginForm()
-    registro_form = RegistroForm()
+def login_page(request):
+    login_form = CustomAuthenticationForm(request, data=request.POST or None)
+    register_form = CustomUserCreationForm(request.POST or None)
 
     if request.method == 'POST':
         action = request.POST.get('action')
 
         if action == 'login':
-            login_form = LoginForm(request.POST)
             if login_form.is_valid():
-                email = login_form.cleaned_data['email']
-                senha = login_form.cleaned_data['senha']
-                try:
-                    Login.objects.get(email=email, senha=senha)
-                    return redirect('homepage')
-                except Login.DoesNotExist:
-                    messages.error(request, 'Email ou senha inválidos.')
+                user = login_form.get_user()
+                auth_login(request, user)
+                return redirect('homepage')
+            else:
+                messages.error(request, 'Erro ao fazer login.')
 
         elif action == 'registro':
-            registro_form = RegistroForm(request.POST)
-            if registro_form.is_valid():
-                registro_form.save()
+            if register_form.is_valid():
+                register_form.save()
+                messages.success(request, 'Conta criada com sucesso.')
                 return redirect('login')
+            else:
+                messages.error(request, 'Erro ao criar conta.')
 
     return render(request, 'login.html', {
-        'login_form': login_form,
-        'registro_form': registro_form
+        'login': login_form,
+        'form': register_form
     })
+
 
 def cadastrar_livro(request):
     if request.method == 'POST':

@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+<style>
+.hidden { display: none; }
+.tab-button.active { font-weight: bold; }
+</style>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
@@ -17,7 +21,7 @@
         <form method="post">
             {% csrf_token %}
             <input type="hidden" name="action" value="login">
-            {{ login_form.as_p }}
+            {{ login.as_p }}
             <button type="submit">Entrar</button>
         </form>
     </div>
@@ -26,7 +30,7 @@
         <form method="post">
             {% csrf_token %}
             <input type="hidden" name="action" value="registro">
-            {{ registro_form.as_p }}
+            {{ form.as_p }}
             <button type="submit">Criar Conta</button>
         </form>
     </div>
@@ -39,6 +43,7 @@
         </ul>
     {% endif %}
 </div>
+
 <script>
 document.querySelectorAll('.tab-button').forEach(button => {
     button.addEventListener('click', () => {
@@ -56,5 +61,6 @@ document.querySelectorAll('.tab-button').forEach(button => {
     })
 })
 </script>
+
 </body>
 </html>

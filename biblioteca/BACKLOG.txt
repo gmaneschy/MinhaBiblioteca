@@ -1,10 +1,10 @@
 Fazer:
     Navbar
-    Tela de login e cadastro
-        Melhorar tela de cadastro
-        Fazer validação de e-mail
-        Fazer validação de senha
-        Rever exibição de erros
+
+    Verificação de Login nas demais páginas:
+        arquivo.html
+        homepage.html
+        @login_required
 
 
     homepage.html:
