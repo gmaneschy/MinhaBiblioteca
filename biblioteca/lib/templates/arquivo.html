@@ -3,128 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <title>Biblioteca</title>
-    <style>
-        .btn {
-            background-color: #8b5e3c;
-            color: white;
-            border: 1px solid #a67b5b;
-            padding: 5px 14px;
-            margin: 2px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Courier New', Courier, monospace;
-            text-decoration: none;
-            font-size: 12px;
-        }
+<style>
+.btn {
+    background-color: #8b5e3c;
+    color: white;
+    border: 1px solid #a67b5b;
+    padding: 5px 14px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+    font-size: 12px;
+}
 
-        .btn:hover {
-            background-color: #6b4226;
-        }
+.btn:hover {
+    background-color: #6b4226;
+}
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            font-family: 'Courier New', Courier, monospace;
-        }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    font-family: 'Courier New', Courier, monospace;
+}
 
-        .modal-conteudo {
-            background: #fdf6e3;
-            border: 3px solid #5d4037;
-            padding: 20px;
-            margin: 10% auto;
-            width: 350px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        }
+.modal-conteudo {
+    background: #fdf6e3;
+    border: 3px solid #5d4037;
+    padding: 20px;
+    margin: 10% auto;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
 
-        .modal-conteudo label {
-            display: block;
-            margin-top: 10px;
-        }
+.modal-conteudo label {
+    display: block;
+    margin-top: 10px;
+}
 
-        .modal-conteudo input {
-            width: 95%;
-            padding: 6px;
-            margin-top: 5px;
-            border: 1px solid #a67b5b;
-            border-radius: 4px;
-            background-color: #fff8dc;
-            font-family: 'Courier New', Courier, monospace;
-        }
+.modal-conteudo input {
+    width: 95%;
+    padding: 6px;
+    margin-top: 5px;
+    border: 1px solid #a67b5b;
+    border-radius: 4px;
+    background-color: #fff8dc;
+    font-family: 'Courier New', Courier, monospace;
+}
 
-        .modal-conteudo button {
-            margin-top: 15px;
-        }
+.modal-conteudo button {
+    margin-top: 15px;
+}
 
-        .column-filter {
-            width: 80%;
-            padding: 4px;
-            margin-top: 5px;
-            border: 1px solid #a67b5b;
-            border-radius: 4px;
-            background-color: #fff8dc;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
-        }
+.column-filter {
+    width: 80%;
+    padding: 4px;
+    margin-top: 5px;
+    border: 1px solid #a67b5b;
+    border-radius: 4px;
+    background-color: #fff8dc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        th, td {
-            padding: 8px 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-        th {
-            position: sticky;
-            top: 0;
-            background: #e0e4cc;
-            z-index: 10;
-        }
+th {
+    position: sticky;
+    top: 0;
+    background: #e0e4cc;
+    z-index: 10;
+}
 
-        .search-container {
-            margin: 15px 0;
-        }
+.search-container {
+    margin: 15px 0;
+}
 
-        .search-input {
-            padding: 8px;
-            width: 300px;
-            border: 1px solid #a67b5b;
-            border-radius: 4px;
-        }
+.search-input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #a67b5b;
+    border-radius: 4px;
+}
 
-        .search-button {
-            padding: 8px 15px;
-            background-color: #8b5e3c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+.search-button {
+    padding: 8px 15px;
+    background-color: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-        .filter-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 5px;
-        }
+.filter-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px;
+}
 
-        .config-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 5px;
-        }
-    </style>
+.config-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px;
+}
+</style>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

@@ -1,5 +1,5 @@
 Fazer:
-    Navbar
+    Navbar (arquivo, cadastro, usuário)
 
     Verificação de Login nas demais páginas:
         arquivo.html
@@ -7,13 +7,13 @@ Fazer:
         @login_required
 
 
-    homepage.html:
-        Reformular front-end da homepage
-        Colocar campos pendentes no formulário
+    login.html:
+        Verificar validações do cadastro de usuário
 
 
     arquivo.html:
         Tornar "Minha Biblioteca" um título alterável
+        Reformular página
 
 Erros:
     Tabela redimensiona de acordo com o filtro e pesquisa - criar tabela de tamanho fixo
