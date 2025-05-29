@@ -6,6 +6,7 @@ body {
   height: 100vh; /* necessário para centralização vertical */
   margin: 0;
   background-color: #fcfaf2;
+  font-size: 14px;
 }
 
 .arquivo {
@@ -32,13 +33,14 @@ body {
   max-height: 75vh; /* Ajuste baseado no espaço disponível */
   overflow-y: auto;
   position: relative;
-  margin-top: 20px; /* Espaço adicional */
+  margin-top: 20px;
 }
 
 td {
   border: 1px solid #8b5e3c;
   padding: 10px;
   text-align: left;
+  font-size: 14px;
 }
 
 /* Cabeçalho da tabela sticky */
@@ -50,6 +52,7 @@ th {
   top: 0;
   background: #e0e4cc;
   z-index: 5;
+  font-size: 16px;
 }
 
 .tabela-scroll {
