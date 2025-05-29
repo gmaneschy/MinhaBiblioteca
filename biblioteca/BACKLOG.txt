@@ -17,3 +17,5 @@ Fazer:
 
 Erros:
     Tabela redimensiona de acordo com o filtro e pesquisa - criar tabela de tamanho fixo
+    Corrigir exibição de erro em inglês na tela recuperação de senha
+    Rever validação de senha no cadastro de usuários

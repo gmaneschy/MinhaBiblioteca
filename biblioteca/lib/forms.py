@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django import forms
 from .models import Livro
 
+User = get_user_model()
 
 class LivroForm(forms.ModelForm):
     class Meta:
@@ -25,7 +26,7 @@ class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Nome do usuário', min_length=4, max_length=150)
     email = forms.EmailField(label='E-mail')
     password1 = forms.CharField(label='Senha', min_length=8, widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirmar senha', min_length=8, widget=forms.PasswordInput)
 
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
@@ -62,9 +63,6 @@ class CustomUserCreationForm(forms.Form):
         if commit:
             user.save()
         return user
-
-
-User = get_user_model()  # <-- AGORA FUNCIONA
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Usuário ou E-mail')
