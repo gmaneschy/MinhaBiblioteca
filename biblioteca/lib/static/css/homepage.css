@@ -12,9 +12,7 @@ body {
   padding: 40px;
   border-radius: 15px;
   border: 3px solid #8b5e3c;
-  width: 30vw;
-  min-width: 300px;
-  max-width: 500px;
+  min-width: 50%;
 }
 
 /* Título */
@@ -27,7 +25,7 @@ h1 {
 /* Formulário */
 form label {
   font-weight: 600;
-  margin-top: 15px;
+  margin-top: 5px;
   display: block;
   color: #5d4037;
 }
@@ -46,7 +44,9 @@ form textarea {
 }
 
 form button {
-  width: 100%;
+  display: block;
+  margin: 0px auto;
+  width: 50%;
   padding: 12px;
   background-color: #8b5e3c;
   color: white;
@@ -59,6 +59,34 @@ form button {
 }
 
 form button:hover {
-  border: 1px solid #a67b5b;
+  border: 2px solid #a67b5b;
   background-color: #6b4226;
+}
+
+.field-name {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 16px;
+  color: #5d4037
+}
+
+.dados-principais {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* Para responsividade */
+}
+
+.form-coluna {
+  flex: 1;
+  min-width: 200px;
+}
+
+.linha-dupla {
+  display: flex;
+  gap: 20px; /* espaço entre os campos */
+  align-items: center;
+}
+
+.linha-dupla div {
+  flex: 1;
 }

@@ -18,21 +18,40 @@
 <body>
 
 <div class="container">
-  <h1>Cadastro</h1>
-    <form method="post" id="cadastroForm" action="{% url 'homepage' %}">
-        {% csrf_token %}
-        <section class="dados-principais">
-            <form id="livroForm" method="POST">
-                {% csrf_token %}
-                {{ form.titulo }}
-                {{ form.autor }}
-                {{ form.editora }}
-                {{ form.tradutor }}
-            <button type="submit" id="btnCadastrar">Cadastrar</button>
-            </form>
-        </section>
-    </form>
+  <h1>Cadastro de Livros</h1>
+  <form method="post" id="cadastroForm" action="{% url 'homepage' %}">
+    {% csrf_token %}
+    <section class="dados-principais field-name">
+      <div class="form-coluna">
+        <label>Título:</label> {{ form.titulo }}
+        <label>Autor:</label> {{ form.autor }}
+        <label>Editora:</label> {{ form.editora }}
+        <label>Tradutor:</label> {{ form.tradutor }}
+      </div>
+      <div class="form-coluna">
+        <label>Gênero:</label> {{ form.genero }}
+        <div class="linha-dupla">
+          <div>
+            <label>N° de Páginas:</label> {{ form.npaginas }}
+          </div>
+          <div>
+            <label>Ano:</label> {{ form.ano }}
+          </div>
+        </div>
+        <div class="linha-dupla">
+          <div>
+            <label>Preço:</label> {{ form.preco }}
+          </div>
+          <div>
+            <label>Status:</label> {{ form.status }}
+          </div>
+        </div>
+      </div>
+    </section>
+    <button type="submit" id="btnCadastrar">Cadastrar</button>
+  </form>
 </div>
+
 
 
 

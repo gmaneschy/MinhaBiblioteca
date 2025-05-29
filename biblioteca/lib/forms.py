@@ -4,12 +4,13 @@ from django.contrib.auth import get_user_model
 from django import forms
 from .models import Livro
 
+
 User = get_user_model()
 
 class LivroForm(forms.ModelForm):
     class Meta:
         model = Livro
-        fields = ['titulo', 'autor', 'editora', 'tradutor', 'genero', 'npaginas', 'ano', 'preco']
+        fields = ['titulo', 'autor', 'editora', 'tradutor', 'genero', 'npaginas', 'ano', 'preco', 'status']
         labels = {
             'titulo': 'Título',
             'autor': 'Autor',
@@ -19,6 +20,28 @@ class LivroForm(forms.ModelForm):
             'npaginas': 'N° de Páginas',
             'ano': 'Ano de Publicação',
             'preco': 'Preço',
+            'status': 'Status',
+        }
+        widgets = {
+            'npaginas': forms.NumberInput(attrs={'min': 0, 'max': 9999, 'oninput': "this.value = this.value.replace(/[^0-9]/g, '')"}),
+            'ano': forms.NumberInput(attrs={'min': 0, 'max': 9999, 'oninput': "this.value = this.value.replace(/[^0-9]/g, '')"}),
+            'preco': forms.NumberInput(attrs={'min': 0, 'step': '0.01', 'oninput': "this.value = this.value.replace(/[^0-9.,]/g, '')"}),
+            'tradutor': forms.TextInput(attrs={
+                'pattern': r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$',
+                'title': 'Apenas letras (sem números ou símbolos)',
+                'oninput': "this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
+            }),
+            'genero': forms.TextInput(attrs={
+                'pattern': r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$',
+                'title': 'Apenas letras (sem números ou símbolos)',
+                'oninput': "this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
+            }),
+            'autor': forms.TextInput(attrs={
+                'pattern': r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$',
+                'title': 'Apenas letras (sem números ou símbolos)',
+                'oninput': "this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
+            }),
+            'status': forms.Select()
         }
 
 
