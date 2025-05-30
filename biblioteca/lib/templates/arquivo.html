@@ -125,72 +125,73 @@ th {
 }
 </style>
 <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
+<link rel="stylesheet" href="{% static 'css/arquivotabela.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<div class="arquivo">
-    <h1>Minha Biblioteca</h1>
+    <div class="arquivo">
+        <h1>Minha Biblioteca</h1>
 
-    <div class="search-container">
-        <form id="search-form" class="search-form">
-            <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
-            <button type="button" class="search-button" id="search-btn">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
+        <div class="search-container">
+            <form id="search-form" class="search-form">
+                <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
+                <button type="button" class="search-button" id="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título
+                            <input type="text" class="column-filter" data-column="0">
+                        </th>
+                        <th>Autor
+                            <input type="text" class="column-filter" data-column="1">
+                        </th>
+                        <th>Editora
+                            <input type="text" class="column-filter" data-column="2">
+                        </th>
+                        <th data-column="3">Tradutor</th>
+                        <th data-column="4">Gênero</th>
+                        <th data-column="5">N° PGS</th>
+                        <th data-column="6">Ano</th>
+                        <th data-column="7">Preço</th>
+                        <th style="width: 20%">
+                            Ações
+                            <button type="button" class="filter-btn" id="clear-filters">
+                                <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
+                            </button>
+                            <button id="config-btn" class="config-btn" title="Configurar Colunas">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livro in livros %}
+                    <tr data-id="{{ livro.id }}">
+                        <td>{{ livro.titulo }}</td>
+                        <td>{{ livro.autor }}</td>
+                        <td>{{ livro.editora }}</td>
+                        <td>{{ livro.tradutor }}</td>
+                        <td>{{ livro.genero }}</td>
+                        <td>{{ livro.npaginas }}</td>
+                        <td>{{ livro.ano }}</td>
+                        <td>{{ livro.preco }}</td>
+                        <td>
+                            <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')">Editar</a>
+                            <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
+                            <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
+                                <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="tabela-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Título
-                        <input type="text" class="column-filter" data-column="0">
-                    </th>
-                    <th>Autor
-                        <input type="text" class="column-filter" data-column="1">
-                    </th>
-                    <th>Editora
-                        <input type="text" class="column-filter" data-column="2">
-                    </th>
-                    <th data-column="3">Tradutor</th>
-                    <th data-column="4">Gênero</th>
-                    <th data-column="5">N° PGS</th>
-                    <th data-column="6">Ano</th>
-                    <th data-column="7">Preço</th>
-                    <th style="width: 20%">
-                        Ações
-                        <button type="button" class="filter-btn" id="clear-filters">
-                            <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
-                        </button>
-                        <button id="config-btn" class="config-btn" title="Configurar Colunas">
-                            <i class="fa-solid fa-gear"></i>
-                        </button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for livro in livros %}
-                <tr data-id="{{ livro.id }}">
-                    <td>{{ livro.titulo }}</td>
-                    <td>{{ livro.autor }}</td>
-                    <td>{{ livro.editora }}</td>
-                    <td>{{ livro.tradutor }}</td>
-                    <td>{{ livro.genero }}</td>
-                    <td>{{ livro.npaginas }}</td>
-                    <td>{{ livro.ano }}</td>
-                    <td>{{ livro.preco }}</td>
-                    <td>
-                        <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')">Editar</a>
-                        <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
-                        <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
-                            <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <!-- Modal para Edição -->
 <div id="modal" class="modal">

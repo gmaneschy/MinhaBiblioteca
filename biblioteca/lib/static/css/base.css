@@ -1,11 +1,13 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Courier New', Courier, monospace;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* necessário para centralização vertical */
-  margin: 0;
-  background-color: #fcfaf2;
+  background-color: #8b5e3c;
+  font-size: 14px;
 }
 
 .container {
