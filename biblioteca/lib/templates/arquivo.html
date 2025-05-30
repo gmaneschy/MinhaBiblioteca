@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Biblioteca</title>
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Cadastro de Livros{% endblock %}
+{% block content %}
 <style>
 .btn {
     background-color: #8b5e3c;
@@ -125,11 +124,9 @@ th {
     margin-left: 5px;
 }
 </style>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+<link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <div class="arquivo">
     <h1>Minha Biblioteca</h1>
 
@@ -516,5 +513,4 @@ th {
         });
     }
 </script>
-</body>
-</html>
+{% endblock %}

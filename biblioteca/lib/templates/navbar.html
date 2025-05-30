@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+  <title>{% block title %}Minha Biblioteca{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+  <nav>
+      <a href="{% url 'homepage' %}">
+          <button type="button" style="border-radius: 0 0 0 30px;">
+              <i class="fa-solid fa-book-medical"></i>
+          </button>
+      </a>
+      <a href="{% url 'arquivo' %}">
+          <button type="button">
+              <i class="fa-solid fa-book"></i>
+          </button>
+      </a>
+      <a href="{% url 'usuario' %}">
+          <button type="button" style="border-radius: 0 0 30px 0;">
+              <i class="fa-solid fa-book-open-reader"></i>
+          </button>
+      </a>
+  </nav>
+{% block content %}{% endblock %}
+</body>
+</html>

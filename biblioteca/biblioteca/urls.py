@@ -28,6 +28,7 @@ urlpatterns = [
     path('deletar/<int:livro_id>/', views.deletar_livro, name='deletar_livro'),
     path('editar-anotacoes/', views.editar_anotacoes, name='editar_anotacoes'),
     path('login/', views.login_page, name='login'),
+    path('usuario/', views.usuario, name='usuario'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

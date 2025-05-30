@@ -114,3 +114,5 @@ def editar_anotacoes(request):
             return JsonResponse({'erro': str(e)}, status=500)
 
     return JsonResponse({'erro': 'Método não permitido'}, status=405)
+
+def usuario(request): return render(request, 'usuario.html')
