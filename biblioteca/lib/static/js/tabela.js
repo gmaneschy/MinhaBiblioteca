@@ -63,3 +63,7 @@ function resetarColunas() {
     localStorage.setItem('colunasVisiveis', JSON.stringify(config));
     aplicarPreferenciasColunas();
 }
+
+function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}

@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Edição de Colunas">
+    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Tela de login e registro">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/BACKLOG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/BACKLOG.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/biblioteca/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/biblioteca/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/arquivo.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/arquivo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/homepage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/js/modais.js" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/js/modais.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/js/pesquisa.js" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/js/pesquisa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/js/tabela.js" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/js/tabela.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -238,7 +233,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748282067084</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Tela de login e registro">
+      <option name="closed" value="true" />
+      <created>1748365019426</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1748365019426</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -265,6 +268,7 @@
     <MESSAGE value="backlog" />
     <MESSAGE value="." />
     <MESSAGE value="Edição de Colunas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edição de Colunas" />
+    <MESSAGE value="Tela de login e registro" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tela de login e registro" />
   </component>
 </project>

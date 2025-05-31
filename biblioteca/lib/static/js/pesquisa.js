@@ -44,3 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         input.addEventListener('input', filterTable);
     });
 });
+
+function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}

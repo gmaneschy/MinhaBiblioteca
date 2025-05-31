@@ -85,10 +85,10 @@ def editar_livro(request, livro_id):
 def deletar_livro(request, livro_id):
     if request.method == 'POST':
         try:
-            livro = Livro.objects.get(pk=livro_id)
+            livro = Livro.objects.get(id=livro_id)
             livro.delete()
             return JsonResponse({'status': 'ok'})
-        except ObjectDoesNotExist:
+        except Livro.DoesNotExist:
             return JsonResponse({'erro': 'Livro não encontrado'}, status=404)
     return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
