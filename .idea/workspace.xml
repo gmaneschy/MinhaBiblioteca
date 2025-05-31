@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Tela de login e registro">
+    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Correção do botão de exclusão.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/js/modais.js" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/js/modais.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/js/pesquisa.js" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/js/pesquisa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/js/tabela.js" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/js/tabela.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/BACKLOG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/BACKLOG.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748365019426</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Correção do botão de exclusão.">
+      <option name="closed" value="true" />
+      <created>1748717782409</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1748717782409</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,6 +273,7 @@
     <MESSAGE value="." />
     <MESSAGE value="Edição de Colunas" />
     <MESSAGE value="Tela de login e registro" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tela de login e registro" />
+    <MESSAGE value="Correção do botão de exclusão." />
+    <option name="LAST_COMMIT_MESSAGE" value="Correção do botão de exclusão." />
   </component>
 </project>
