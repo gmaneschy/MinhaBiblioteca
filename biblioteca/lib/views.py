@@ -81,7 +81,7 @@ def editar_livro(request, livro_id):
     else:
         return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
-@csrf_exempt  # ou use token corretamente
+
 def deletar_livro(request, livro_id):
     if request.method == 'POST':
         try:

@@ -2,196 +2,79 @@
 {% load static %}
 {% block title %}Cadastro de Livros{% endblock %}
 {% block content %}
-<style>
-.btn {
-    background-color: #8b5e3c;
-    color: white;
-    border: 1px solid #a67b5b;
-    padding: 5px 14px;
-    margin: 2px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Courier New', Courier, monospace;
-    text-decoration: none;
-    font-size: 12px;
-}
-
-.btn:hover {
-    background-color: #6b4226;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.modal-conteudo {
-    background: #fdf6e3;
-    border: 3px solid #5d4037;
-    padding: 20px;
-    margin: 10% auto;
-    width: 350px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-.modal-conteudo label {
-    display: block;
-    margin-top: 10px;
-}
-
-.modal-conteudo input {
-    width: 95%;
-    padding: 6px;
-    margin-top: 5px;
-    border: 1px solid #a67b5b;
-    border-radius: 4px;
-    background-color: #fff8dc;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.modal-conteudo button {
-    margin-top: 15px;
-}
-
-.column-filter {
-    width: 80%;
-    padding: 4px;
-    margin-top: 5px;
-    border: 1px solid #a67b5b;
-    border-radius: 4px;
-    background-color: #fff8dc;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 12px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 8px 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-th {
-    position: sticky;
-    top: 0;
-    background: #e0e4cc;
-    z-index: 10;
-}
-
-.search-container {
-    margin: 15px 0;
-}
-
-.search-input {
-    padding: 8px;
-    width: 300px;
-    border: 1px solid #a67b5b;
-    border-radius: 4px;
-}
-
-.search-button {
-    padding: 8px 15px;
-    background-color: #8b5e3c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.filter-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 5px;
-}
-
-.config-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 5px;
-}
-</style>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<script src="{% static 'js/modais.js' %}"></script>
+<script src="{% static 'js/tabela.js' %}"></script>
+<script src="{% static 'js/pesquisa.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/arquivo.css' %}">
-<link rel="stylesheet" href="{% static 'css/arquivotabela.css' %}">
+<link rel="stylesheet" href="{% static 'css/tabela.css' %}">
+<link rel="stylesheet" href="{% static 'css/pesquisa.css' %}">
+<link rel="stylesheet" href="{% static 'css/modais.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="arquivo">
+    <h1>Minha Biblioteca</h1>
 
-    <div class="arquivo">
-        <h1>Minha Biblioteca</h1>
-
-        <div class="search-container">
-            <form id="search-form" class="search-form">
-                <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
-                <button type="button" class="search-button" id="search-btn">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-        </div>
-        <div class="tabela-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Título
-                            <input type="text" class="column-filter" data-column="0">
-                        </th>
-                        <th>Autor
-                            <input type="text" class="column-filter" data-column="1">
-                        </th>
-                        <th>Editora
-                            <input type="text" class="column-filter" data-column="2">
-                        </th>
-                        <th data-column="3">Tradutor</th>
-                        <th data-column="4">Gênero</th>
-                        <th data-column="5">N° PGS</th>
-                        <th data-column="6">Ano</th>
-                        <th data-column="7">Preço</th>
-                        <th style="width: 20%">
-                            Ações
-                            <button type="button" class="filter-btn" id="clear-filters">
-                                <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
-                            </button>
-                            <button id="config-btn" class="config-btn" title="Configurar Colunas">
-                                <i class="fa-solid fa-gear"></i>
-                            </button>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for livro in livros %}
-                    <tr data-id="{{ livro.id }}">
-                        <td>{{ livro.titulo }}</td>
-                        <td>{{ livro.autor }}</td>
-                        <td>{{ livro.editora }}</td>
-                        <td>{{ livro.tradutor }}</td>
-                        <td>{{ livro.genero }}</td>
-                        <td>{{ livro.npaginas }}</td>
-                        <td>{{ livro.ano }}</td>
-                        <td>{{ livro.preco }}</td>
-                        <td>
-                            <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')">Editar</a>
-                            <a href="#" class="btn" onclick="excluirLivro({{ livro.id }}, this)">Excluir</a>
-                            <a href="#" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')" class="btn">
-                                <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="search-container">
+        <form id="search-form" class="search-form" onsubmit="event.preventDefault(); realizarPesquisa();">
+            <input type="text" class="search-input" id="search-input" placeholder="Pesquisar...">
+            <button type="button" class="search-button" id="search-btn" onclick="realizarPesquisa()">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
     </div>
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título
+                        <input type="text" class="column-filter" data-column="0">
+                    </th>
+                    <th>Autor
+                        <input type="text" class="column-filter" data-column="1">
+                    </th>
+                    <th>Editora
+                        <input type="text" class="column-filter" data-column="2">
+                    </th>
+                    <th data-column="3">Tradutor</th>
+                    <th data-column="4">Gênero</th>
+                    <th data-column="5">N° PGS</th>
+                    <th data-column="6">Ano</th>
+                    <th data-column="7">Preço</th>
+                    <th style="width: 20%">
+                        Ações
+                        <button type="button" class="filter-btn" id="clear-filters">
+                            <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
+                        </button>
+                        <button id="config-btn" class="config-btn" title="Configurar Colunas">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livro in livros %}
+                <tr data-id="{{ livro.id }}">
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td>{{ livro.editora }}</td>
+                    <td>{{ livro.tradutor }}</td>
+                    <td>{{ livro.genero }}</td>
+                    <td>{{ livro.npaginas }}</td>
+                    <td>{{ livro.ano }}</td>
+                    <td>{{ livro.preco }}</td>
+                    <td>
+                <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')">Editar</a>
+                <a class="btn" onclick="excluirLivro('{{ livro.id }}', '{% url 'deletar_livro' livro.id %}')">Excluir</a>
+                <a class="btn" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')">
+                    <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
+                </a>
+            </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!-- Modal para Edição -->
 <div id="modal" class="modal">
@@ -215,8 +98,10 @@ th {
             <input type="number" name="ano" id="modal-ano" min="0000" max="9999">
             <label for="modal-preco">Preço:</label>
             <input type="text" name="preco" id="modal-preco">
-            <button type="submit" class="btn">Salvar</button>
-            <button type="button" class="btn" onclick="fecharModalEdicao()">Cancelar</button>
+            <div class="modal-botoes" style="align-items: center">
+                <button type="submit" class="btn">Salvar</button>
+                <button type="button" class="btn" onclick="fecharModalEdicao()">Cancelar</button>
+            </div>
         </form>
     </div>
 </div>
@@ -230,8 +115,10 @@ th {
             <input type="hidden" name="livro_id" id="livro_id">
             <textarea name="anotacoes" id="anotacoes" rows="8" style="width: 100%"></textarea>
             <br>
-            <button type="submit" class="btn">Salvar</button>
-            <button type="button" class="btn" onclick="fecharModalAnotacoes()">Cancelar</button>
+            <div class="modal-botoes">
+                <button type="submit" class="btn">Salvar</button>
+                <button type="button" class="btn" onclick="fecharModalAnotacoes()">Cancelar</button>
+            </div>
         </form>
     </div>
 </div>
@@ -240,16 +127,41 @@ th {
 <div id="modalConfig" class="modal">
     <div class="modal-conteudo">
         <h3>Selecionar colunas visíveis</h3>
-        <form>
-            <label><input type="checkbox" class="col-toggle" data-col="0" checked> Título</label>
-            <label><input type="checkbox" class="col-toggle" data-col="1" checked> Autor</label>
-            <label><input type="checkbox" class="col-toggle" data-col="2" checked> Editora</label>
-            <label><input type="checkbox" class="col-toggle" data-col="3" checked> Tradutor</label>
-            <label><input type="checkbox" class="col-toggle" data-col="4" checked> Gênero</label>
-            <label><input type="checkbox" class="col-toggle" data-col="5" checked> N° de Páginas</label>
-            <label><input type="checkbox" class="col-toggle" data-col="6" checked> Ano</label>
-            <label><input type="checkbox" class="col-toggle" data-col="7" checked> Preço</label>
-            <div style="margin-top: 20px;">
+        <form class="coluna-form">
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="0" checked>
+                <label>Título</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="1" checked>
+                <label>Autor</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="2" checked>
+                <label>Editora</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="3" checked>
+                <label>Tradutor</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="4" checked>
+                <label>Gênero</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="5" checked>
+                <label>N° de Páginas</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="6" checked>
+                <label>Ano</label>
+            </div>
+            <div class="coluna-checkbox">
+                <input type="checkbox" class="col-toggle" data-col="7" checked>
+                <label>Preço</label>
+            </div>
+
+            <div class="modal-botoes">
                 <button type="button" class="btn" onclick="fecharModalConfig()">Fechar</button>
                 <button type="button" class="btn" onclick="resetarColunas()">Resetar Padrão</button>
             </div>
@@ -257,261 +169,4 @@ th {
     </div>
 </div>
 
-<script>
-    // Funções do Modal de Edição
-    function abrirModal(id, titulo, autor, editora, tradutor, genero, npaginas, ano, preco) {
-        document.getElementById('modal').style.display = 'block';
-        document.getElementById('modal-id').value = id;
-        document.getElementById('modal-titulo').value = titulo;
-        document.getElementById('modal-autor').value = autor;
-        document.getElementById('modal-editora').value = editora;
-        document.getElementById('modal-tradutor').value = tradutor;
-        document.getElementById('modal-genero').value = genero;
-        document.getElementById('modal-npaginas').value = npaginas;
-        document.getElementById('modal-ano').value = ano;
-        document.getElementById('modal-preco').value = preco;
-    }
-
-    function fecharModalEdicao() {
-        document.getElementById('modal').style.display = 'none';
-    }
-
-    function salvarLivro(event) {
-        event.preventDefault();
-
-        const formData = {
-            id: document.getElementById('modal-id').value,
-            titulo: document.getElementById('modal-titulo').value,
-            autor: document.getElementById('modal-autor').value,
-            editora: document.getElementById('modal-editora').value,
-            tradutor: document.getElementById('modal-tradutor').value,
-            genero: document.getElementById('modal-genero').value,
-            npaginas: document.getElementById('modal-npaginas').value,
-            ano: document.getElementById('modal-ano').value,
-            preco: document.getElementById('modal-preco').value
-        };
-
-        // Validação básica
-        if (!formData.titulo || !formData.autor || !formData.editora) {
-            alert('Por favor, preencha pelo menos Título, Autor e Editora.');
-            return;
-        }
-
-        fetch(`/editar/${formData.id}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Erro na resposta do servidor');
-            return response.json();
-        })
-        .then(data => {
-            if (data.id) {
-                const linha = document.querySelector(`tr[data-id='${data.id}']`);
-                if (linha) {
-                    linha.cells[0].textContent = data.titulo;
-                    linha.cells[1].textContent = data.autor;
-                    linha.cells[2].textContent = data.editora;
-                    linha.cells[3].textContent = data.tradutor;
-                    linha.cells[4].textContent = data.genero;
-                    linha.cells[5].textContent = data.npaginas;
-                    linha.cells[6].textContent = data.ano;
-                    linha.cells[7].textContent = data.preco;
-                }
-                fecharModalEdicao();
-            } else {
-                alert('Erro ao salvar: ' + (data.error || ''));
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro ao salvar livro: ' + error.message);
-        });
-    }
-
-    // Funções do Modal de Anotações
-    function abrirModalAnotacoes(id, anotacoes) {
-        document.getElementById('livro_id').value = id;
-        document.getElementById('anotacoes').value = anotacoes !== 'None' ? anotacoes : '';
-        document.getElementById('modalAnotacoes').style.display = 'block';
-    }
-
-    function fecharModalAnotacoes() {
-        document.getElementById('modalAnotacoes').style.display = 'none';
-    }
-
-    document.getElementById('formAnotacoes').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-        const livroId = formData.get('livro_id');
-        const anotacoes = formData.get('anotacoes');
-
-        fetch(this.action, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-            },
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Erro no servidor');
-            return response.json();
-        })
-        .then(data => {
-            if (data.status === 'ok') {
-                const anotacaoBtn = document.querySelector(`a[onclick*="abrirModalAnotacoes(${livroId}, "]`);
-                if (anotacaoBtn) {
-                    anotacaoBtn.setAttribute('onclick', `abrirModalAnotacoes(${livroId}, '${anotacoes.replace(/'/g, "\\'")}')`);
-                }
-                fecharModalAnotacoes();
-                alert('Anotações salvas com sucesso!');
-            } else {
-                throw new Error(data.erro || 'Erro ao salvar anotações');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert(error.message);
-        });
-    });
-
-    // Funções do Modal de Configuração
-    document.getElementById('config-btn').addEventListener('click', () => {
-        document.getElementById('modalConfig').style.display = 'block';
-    });
-
-    function fecharModalConfig() {
-        document.getElementById('modalConfig').style.display = 'none';
-    }
-
-    function resetarColunas() {
-        const config = {};
-        for (let i = 0; i < 8; i++) {
-            config[i] = true;
-        }
-        localStorage.setItem('colunasVisiveis', JSON.stringify(config));
-        aplicarPreferenciasColunas();
-    }
-
-    // Configuração de colunas visíveis
-    function aplicarPreferenciasColunas() {
-        const config = JSON.parse(localStorage.getItem('colunasVisiveis')) || {};
-
-        // Inicializa com true para todas as colunas se não existir configuração
-        for (let i = 0; i < 8; i++) {
-            if (config[i] === undefined) config[i] = true;
-        }
-
-        // Aplica aos checkboxes e colunas
-        document.querySelectorAll('.col-toggle').forEach(checkbox => {
-            const colIndex = parseInt(checkbox.dataset.col);
-            checkbox.checked = config[colIndex];
-
-            document.querySelectorAll(`th:nth-child(${colIndex + 1}), td:nth-child(${colIndex + 1})`).forEach(el => {
-                el.style.display = config[colIndex] ? '' : 'none';
-            });
-        });
-
-        localStorage.setItem('colunasVisiveis', JSON.stringify(config));
-    }
-
-    document.querySelectorAll('.col-toggle').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const colIndex = parseInt(this.dataset.col);
-            const config = JSON.parse(localStorage.getItem('colunasVisiveis')) || {};
-            config[colIndex] = this.checked;
-            localStorage.setItem('colunasVisiveis', JSON.stringify(config));
-            aplicarPreferenciasColunas();
-        });
-    });
-
-    // Filtros de pesquisa
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('search-input');
-        const columnFilters = Array.from({length: 8}, (_, i) =>
-            document.querySelector(`.column-filter[data-column="${i}"]`));
-
-        function filterTable() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filters = columnFilters.map(input => input.value.toLowerCase());
-
-            document.querySelectorAll('tbody tr').forEach(row => {
-                let shouldShow = true;
-                const cells = row.querySelectorAll('td');
-
-                // Filtro global
-                if (searchTerm) {
-                    const rowText = row.textContent.toLowerCase();
-                    if (!rowText.includes(searchTerm)) shouldShow = false;
-                }
-
-                // Filtros por coluna
-                filters.forEach((filter, index) => {
-                    if (filter && index < cells.length) {
-                        const cellText = cells[index].textContent.toLowerCase();
-                        if (!cellText.includes(filter)) shouldShow = false;
-                    }
-                });
-
-                row.style.display = shouldShow ? '' : 'none';
-            });
-        }
-
-        // Event listeners
-        searchInput.addEventListener('input', filterTable);
-        columnFilters.forEach(input => input.addEventListener('input', filterTable));
-
-        // Botão limpar filtros
-        document.getElementById('clear-filters').addEventListener('click', function() {
-            searchInput.value = '';
-            columnFilters.forEach(input => input.value = '');
-            filterTable();
-        });
-
-        // Aplica as configurações de colunas ao carregar
-        aplicarPreferenciasColunas();
-    });
-
-    // Fechar modais ao clicar fora
-    window.onclick = function(event) {
-        if (event.target === document.getElementById('modal')) {
-            fecharModalEdicao();
-        }
-        if (event.target === document.getElementById('modalAnotacoes')) {
-            fecharModalAnotacoes();
-        }
-        if (event.target === document.getElementById('modalConfig')) {
-            fecharModalConfig();
-        }
-    }
-
-    // Função para excluir livro
-    function excluirLivro(id, botao) {
-        if (!confirm("Tem certeza que deseja excluir este livro?")) return;
-
-        fetch(`/deletar/${id}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'ok') {
-                botao.closest('tr').remove();
-            } else {
-                alert('Erro ao excluir livro');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro ao excluir livro.');
-        });
-    }
-</script>
 {% endblock %}

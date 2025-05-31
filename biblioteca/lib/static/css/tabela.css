@@ -1,0 +1,87 @@
+/* === Container da Tabela === */
+.tabela-container {
+  max-height: 75vh;
+  overflow-y: auto;
+  position: relative;
+  margin-top: 20px;
+}
+
+/* === Scroll da Tabela === */
+.tabela-scroll {
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+/* === Estrutura da Tabela === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #8b5e3c;
+  margin-top: 0;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #8b5e3c;
+  font-size: 14px;
+}
+
+/* Cabeçalho Sticky */
+th {
+  position: sticky;
+  top: 0;
+  background: #e0e4cc;
+  z-index: 10;
+  font-size: 16px;
+  width: auto;
+}
+
+/* Ações (última coluna) */
+th:last-child {
+  padding-bottom: 10px;
+}
+
+/* === Filtros === */
+.column-filter {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 50%;
+  padding: 5px;
+  border: 1px solid #8b5e3c;
+  border-radius: 4px;
+  background-color: #fff8dc;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+/* === Botões === */
+.filter-btn,
+.config-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 14px;
+  font-size: 12px;
+  background-color: #8b5e3c;
+  color: white;
+  border: 1px solid #a67b5b;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-btn:hover,
+.config-btn:hover {
+  background-color: #6b4226;
+}
+
+.filter-btn {
+  right: 2%;
+}
+
+.config-btn {
+  right: 16%;
+}
