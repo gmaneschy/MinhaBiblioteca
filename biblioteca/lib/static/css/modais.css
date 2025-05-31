@@ -44,12 +44,6 @@
     align-items: flex-start;
 }
 
-.coluna-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .coluna-checkbox {
     display: flex;
     align-items: center;

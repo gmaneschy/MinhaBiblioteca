@@ -14,7 +14,7 @@ Fazer:
     arquivo.html:
         Tornar "Minha Biblioteca" um título alterável
         Reformulação de página quase completa
-            Corrigir exclusão de livro
+            Reformular exibição de tabela e anotações
 
 Erros:
     Tabela redimensiona de acordo com o filtro e pesquisa - criar tabela de tamanho fixo
