@@ -1,20 +1,24 @@
 Fazer:
-    Navbar (arquivo, cadastro, usuário)
-
     Verificação de Login nas demais páginas:
         arquivo.html
         homepage.html
         @login_required
 
-
     login.html:
         Verificar validações do cadastro de usuário
-
 
     arquivo.html:
         Tornar "Minha Biblioteca" um título alterável
 
+    usuario.html:
+        Título da biblioteca é associado ao usuário
+        Foto de perfil (upload e edição)
+        Descrição de perfil (edição)
+        Dados da biblioteca (gráficos):
+            Quantidade de livros
+            Quantidade de páginas
+            Preço total
+
 Erros:
-    Tabela redimensiona de acordo com o filtro e pesquisa - criar tabela de tamanho fixo
     Corrigir exibição de erro em inglês na tela recuperação de senha
     Rever validação de senha no cadastro de usuários
