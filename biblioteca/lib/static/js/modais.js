@@ -78,51 +78,73 @@ function salvarLivro(event) {
 }
 
 // Modal de Anotações
-function abrirModalAnotacoes(id, anotacoes) {
+function abrirModalAnotacoes(elemento) {
+    const id = elemento.getAttribute('data-livro-id');
+    let anotacoes = elemento.getAttribute('data-anotacoes') || '';
+
+    if (anotacoes !== 'None') {
+        // Substitui as quebras de linha codificadas
+        anotacoes = anotacoes
+  .replace(/\\n/g, '\n')
+  .replace(/\\r/g, '')
+  .replace(/\u000D/g, '')
+  .replace(/\u000A/g, '\n');
+    } else {
+        anotacoes = '';
+    }
+
     document.getElementById('livro_id').value = id;
-    document.getElementById('anotacoes').value = anotacoes !== 'None' ? anotacoes : '';
+    document.getElementById('anotacoes').value = anotacoes;
     document.getElementById('modalAnotacoes').style.display = 'block';
 }
+
 
 function fecharModalAnotacoes() {
     document.getElementById('modalAnotacoes').style.display = 'none';
 }
 
-document.getElementById('formAnotacoes').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formAnotacoes');
 
-    const formData = new FormData(this);
-    const livroId = formData.get('livro_id');
-    const anotacoes = formData.get('anotacoes');
+    if (!form) return; // segurança
 
-    fetch(this.action, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-        },
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Erro no servidor');
-        return response.json();
-    })
-    .then(data => {
-        if (data.status === 'ok') {
-            const anotacaoBtn = document.querySelector(`a[onclick*="abrirModalAnotacoes(${livroId}, "]`);
-            if (anotacaoBtn) {
-                anotacaoBtn.setAttribute('onclick', `abrirModalAnotacoes(${livroId}, '${anotacoes.replace(/'/g, "\\'")}')`);
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const livroId = formData.get('livro_id');
+        const anotacoes = formData.get('anotacoes');
+
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Erro no servidor');
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'ok') {
+                const anotacaoBtn = document.querySelector(`a[data-livro-id="${livroId}"]`);
+                if (anotacaoBtn) {
+                    anotacaoBtn.setAttribute('data-anotacoes', anotacoes);
+                }
+                fecharModalAnotacoes();
+                alert('Anotações salvas com sucesso!');
+            } else {
+                throw new Error(data.erro || 'Erro ao salvar anotações');
             }
-            fecharModalAnotacoes();
-            alert('Anotações salvas com sucesso!');
-        } else {
-            throw new Error(data.erro || 'Erro ao salvar anotações');
-        }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert(error.message);
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert(error.message);
+        });
     });
 });
+
 
 function excluirLivro(id, url) {
     if (confirm("Tem certeza que deseja excluir este livro?")) {

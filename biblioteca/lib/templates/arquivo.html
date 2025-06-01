@@ -65,12 +65,10 @@
                     <td>{{ livro.ano }}</td>
                     <td>{{ livro.preco }}</td>
                     <td>
-                <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')">Editar</a>
-                <a class="btn" onclick="excluirLivro('{{ livro.id }}', '{% url 'deletar_livro' livro.id %}')">Excluir</a>
-                <a class="btn" onclick="abrirModalAnotacoes({{ livro.id }}, '{{ livro.anotacoes|escapejs }}')">
-                    <i class="fa-solid fa-quote-left" title="Anotações" style="color: #ffffff"></i>
-                </a>
-            </td>
+                    <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')" title="Editar Livro"><i class="fa-solid fa-pen"></i></a>
+                    <a class="btn" onclick="excluirLivro('{{ livro.id }}', '{% url 'deletar_livro' livro.id %}')" title="Excluir Livro"><i class="fa-solid fa-eraser"></i></a>
+                    <a class="btn" data-livro-id="{{ livro.id }}" data-anotacoes="{{ livro.anotacoes|default_if_none:''|escapejs }}" onclick="abrirModalAnotacoes(this)" title="Anotações"><i class="fa-solid fa-quote-left"></i></a>
+                </td>
                 </tr>
                 {% endfor %}
             </tbody>
