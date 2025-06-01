@@ -44,7 +44,6 @@ class LivroForm(forms.ModelForm):
             'status': forms.Select()
         }
 
-
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Nome do usuário', min_length=4, max_length=150)
     email = forms.EmailField(label='E-mail')

@@ -82,13 +82,15 @@ function abrirModalAnotacoes(elemento) {
     const id = elemento.getAttribute('data-livro-id');
     let anotacoes = elemento.getAttribute('data-anotacoes') || '';
 
-    if (anotacoes !== 'None') {
-        // Substitui as quebras de linha codificadas
-        anotacoes = anotacoes
-  .replace(/\\n/g, '\n')
-  .replace(/\\r/g, '')
-  .replace(/\u000D/g, '')
-  .replace(/\u000A/g, '\n');
+    if (anotacoes !== 'None' && anotacoes !== '') {
+        // Decodifica entidades HTML e trata quebras de linha
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = anotacoes;
+        anotacoes = textarea.value
+            .replace(/\\n/g, '\n')
+            .replace(/\\r/g, '')
+            .replace(/\\u000D/g, '')
+            .replace(/\\u000A/g, '\n');
     } else {
         anotacoes = '';
     }

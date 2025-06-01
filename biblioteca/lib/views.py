@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from django.core.exceptions import ObjectDoesNotExist
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
 from .models import Livro
@@ -81,7 +82,6 @@ def editar_livro(request, livro_id):
     else:
         return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
-
 def deletar_livro(request, livro_id):
     if request.method == 'POST':
         try:
@@ -101,13 +101,13 @@ def editar_anotacoes(request):
                 return JsonResponse({'erro': 'ID do livro não fornecido'}, status=400)
 
             livro = get_object_or_404(Livro, id=livro_id)
-            livro.anotacoes = request.POST.get('anotacoes', '')  # Usa string vazia como padrão
+            livro.anotacoes = request.POST.get('anotacoes', '')
             livro.save()
 
             return JsonResponse({
                 'status': 'ok',
                 'livro_id': livro.id,
-                'anotacoes': livro.anotacoes
+                'anotacoes': mark_safe(livro.anotacoes)  # Marca como seguro
             })
 
         except Exception as e:

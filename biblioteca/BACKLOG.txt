@@ -13,7 +13,6 @@ Fazer:
 
     arquivo.html:
         Tornar "Minha Biblioteca" um título alterável
-        Corrigir unicode em anotações
 
 Erros:
     Tabela redimensiona de acordo com o filtro e pesquisa - criar tabela de tamanho fixo
