@@ -2,5 +2,15 @@
 {% load static %}
 {% block title %}Usuário{% endblock %}
 {% block content %}
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<link rel="stylesheet" href="{% static 'css/usuario.css' %}">
+
+<div class="usuario">
+
+
+
+</div>
+
+
 
 {% endblock %}

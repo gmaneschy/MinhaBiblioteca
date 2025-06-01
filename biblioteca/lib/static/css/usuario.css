@@ -1,0 +1,24 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #8b5e3c;
+  font-size: 14px;
+}
+
+.usuario {
+  background: #fdf6e3;
+  position: relative;
+  padding: 70px 20px 20px 20px; /* Espaço pra navbar fixa */
+  border-radius: 30px;
+  border: 3px solid #8b5e3c;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto; /* rolagem interna se necessário */
+  color: #444;
+}

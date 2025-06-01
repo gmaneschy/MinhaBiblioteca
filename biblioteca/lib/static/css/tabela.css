@@ -7,12 +7,7 @@
   border: 3px solid #8b5e3c;
   border-radius: 15px;
   background-color: #8b5e3c;
-}
-
-/* === Scroll da Tabela === */
-.tabela-scroll {
-  max-height: 500px;
-  overflow-y: auto;
+  scrollbar-width: none; /* Ocultar scrollbar */
 }
 
 /* === Estrutura da Tabela === */
@@ -55,7 +50,7 @@ th:last-child,
 td:last-child{
   white-space: nowrap;
   padding-bottom: 10px;
-  width: 10%;
+  width: 1%;
 }
 
 /* === Filtros === */
@@ -72,7 +67,7 @@ td:last-child{
 
 .acoes-btns {
   display: flex;
-  gap: 12px; /* distância flexível entre os botões */
+  gap: 10px; /* distância flexível entre os botões */
   position: absolute;
   top: 50%;
   right: 10px;
