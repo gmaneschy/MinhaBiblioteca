@@ -40,6 +40,31 @@ document.addEventListener('DOMContentLoaded', function () {
         searchInput.addEventListener('input', filterTable);
     }
 
+    // Filtros por coluna
+    columnFilters.forEach(input => {
+        input.addEventListener('input', filterTable);
+    });
+
+    // Botão de limpar filtros
+    const clearButton = document.getElementById('clear-filters');
+
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            // Limpa o campo de busca geral
+            if (searchInput) {
+                searchInput.value = '';
+            }
+
+            // Limpa os filtros por coluna
+            columnFilters.forEach(input => {
+                input.value = '';
+            });
+
+            // Reaplica a filtragem (vai mostrar tudo)
+            filterTable();
+        });
+    }
+
     columnFilters.forEach(input => {
         input.addEventListener('input', filterTable);
     });

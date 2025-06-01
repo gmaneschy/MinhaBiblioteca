@@ -37,18 +37,20 @@
                     </th>
                     <th data-column="3">Tradutor</th>
                     <th data-column="4">Gênero</th>
-                    <th data-column="5">N° PGS</th>
+                    <th data-column="5">Páginas</th>
                     <th data-column="6">Ano</th>
                     <th data-column="7">Preço</th>
-                    <th style="width: 20%">
-                        Ações
-                        <button type="button" class="filter-btn" id="clear-filters">
-                            <i class="fa-solid fa-filter-circle-xmark" title="Limpar todos os filtros"></i>
+                    <th>
+                    Ações
+                    <div class="acoes-btns">
+                        <button type="button" class="filter-btn" id="clear-filters" title="Limpar todos os filtros">
+                            <i class="fa-solid fa-filter-circle-xmark"></i>
                         </button>
                         <button id="config-btn" class="config-btn" title="Configurar Colunas">
                             <i class="fa-solid fa-gear"></i>
                         </button>
-                    </th>
+                    </div>
+                </th>
                 </tr>
             </thead>
             <tbody>
@@ -150,7 +152,7 @@
             </div>
             <div class="coluna-checkbox">
                 <input type="checkbox" class="col-toggle" data-col="5" checked>
-                <label>N° de Páginas</label>
+                <label>Páginas</label>
             </div>
             <div class="coluna-checkbox">
                 <input type="checkbox" class="col-toggle" data-col="6" checked>

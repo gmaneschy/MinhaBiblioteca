@@ -1,70 +1,87 @@
 /* === Container da Tabela === */
 .tabela-container {
-  max-height: 75vh;
+  max-height: 95%;
   overflow-y: auto;
   position: relative;
   margin-top: 20px;
+  border: 3px solid #8b5e3c;
+  border-radius: 15px;
+  background-color: #8b5e3c;
 }
 
 /* === Scroll da Tabela === */
 .tabela-scroll {
   max-height: 500px;
   overflow-y: auto;
-  border-radius: 10px;
 }
 
 /* === Estrutura da Tabela === */
 table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #8b5e3c;
   margin-top: 0;
+  table-layout: auto;
 }
 
 th, td {
   padding: 10px;
   text-align: left;
   border: 1px solid #8b5e3c;
-  font-size: 14px;
+  font-size: 13px;
+  background-color: #fdf6e3;
+}
+
+td{
+  border-radius: 5px;
 }
 
 /* Cabeçalho Sticky */
 th {
+  align-items: flex-start;
+  justify-content: flex-start;
   position: sticky;
-  top: 0;
+  top: -1px;
   background: #e0e4cc;
   z-index: 10;
-  font-size: 16px;
+  font-size: 14px;
   width: auto;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
 }
 
+
 /* Ações (última coluna) */
-th:last-child {
+th:last-child,
+td:last-child{
+  white-space: nowrap;
   padding-bottom: 10px;
 }
 
 /* === Filtros === */
 .column-filter {
-  position: absolute;
-  right: 6px;
-  bottom: 6px;
+  margin-top: 4px;
   width: 50%;
-  padding: 5px;
   border: 1px solid #8b5e3c;
   border-radius: 4px;
   background-color: #fff8dc;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 12px;
+  font-size: 14px;
   box-sizing: border-box;
 }
 
-/* === Botões === */
-.filter-btn,
-.config-btn {
+.acoes-btns {
+  display: flex;
+  gap: 12px; /* distância flexível entre os botões */
   position: absolute;
   top: 50%;
+  right: 10px;
   transform: translateY(-50%);
-  padding: 5px 14px;
+}
+
+/* Botões */
+.filter-btn,
+.config-btn {
+  padding: 5px 10px;
   font-size: 12px;
   background-color: #8b5e3c;
   color: white;
@@ -76,12 +93,4 @@ th:last-child {
 .filter-btn:hover,
 .config-btn:hover {
   background-color: #6b4226;
-}
-
-.filter-btn {
-  right: 2%;
-}
-
-.config-btn {
-  right: 16%;
 }
