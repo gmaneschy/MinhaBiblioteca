@@ -21,6 +21,13 @@ class Livro(models.Model):
     preco = models.DecimalField("Preço", max_digits=4, decimal_places=2, default=0.00, blank=True, null=True)
     status = models.CharField("Status", max_length=20, choices=Status.choices, default=Status.NAO_LIDO)
     anotacoes = models.TextField("Anotações", blank=True, null=True)
+    def save(self, *args, **kwargs):
+        campos_opcionais = ['tradutor', 'genero', 'anotacoes']
+        for campo in campos_opcionais:
+            valor = getattr(self, campo)
+            if valor in ["", "None"]:
+                setattr(self, campo, None)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.titulo} - {self.autor} - {self.editora} - {self.tradutor} - {self.genero} - {self.npaginas} - {self.ano} - {self.preco} - {self.status} - {self.anotacoes}"

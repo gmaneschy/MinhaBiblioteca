@@ -73,8 +73,8 @@ def editar_livro(request, livro_id):
             'titulo': livro.titulo,
             'autor': livro.autor,
             'editora': livro.editora,
-            'tradutor': livro.tradutor,
-            'genero': livro.genero,
+            'tradutor': livro.tradutor or '',
+            'genero': livro.genero or '',
             'npaginas': livro.npaginas,
             'ano': livro.ano,
             'preco': livro.preco

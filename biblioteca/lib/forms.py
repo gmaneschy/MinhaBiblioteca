@@ -8,6 +8,13 @@ from .models import Livro
 User = get_user_model()
 
 class LivroForm(forms.ModelForm):
+    def clean_tradutor(self):
+        valor = self.cleaned_data.get('tradutor')
+        return None if valor in ["", "None"] else valor
+    def clean_genero(self):
+        valor = self.cleaned_data.get('genero')
+        return None if valor in ["", "None"] else valor
+
     class Meta:
         model = Livro
         fields = ['titulo', 'autor', 'editora', 'tradutor', 'genero', 'npaginas', 'ano', 'preco', 'status']

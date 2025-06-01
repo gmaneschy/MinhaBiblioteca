@@ -1,15 +1,19 @@
 // Modal de Edição
 function abrirModal(id, titulo, autor, editora, tradutor, genero, npaginas, ano, preco) {
+    function limpar(valor) {
+        return (valor === null || valor === undefined || valor === 'None') ? '' : valor;
+    }
+
     document.getElementById('modal').style.display = 'block';
-    document.getElementById('modal-id').value = id;
-    document.getElementById('modal-titulo').value = titulo;
-    document.getElementById('modal-autor').value = autor;
-    document.getElementById('modal-editora').value = editora;
-    document.getElementById('modal-tradutor').value = tradutor;
-    document.getElementById('modal-genero').value = genero;
-    document.getElementById('modal-npaginas').value = npaginas;
-    document.getElementById('modal-ano').value = ano;
-    document.getElementById('modal-preco').value = preco;
+    document.getElementById('modal-id').value = limpar(id);
+    document.getElementById('modal-titulo').value = limpar(titulo);
+    document.getElementById('modal-autor').value = limpar(autor);
+    document.getElementById('modal-editora').value = limpar(editora);
+    document.getElementById('modal-tradutor').value = limpar(tradutor);
+    document.getElementById('modal-genero').value = limpar(genero);
+    document.getElementById('modal-npaginas').value = limpar(npaginas);
+    document.getElementById('modal-ano').value = limpar(ano);
+    document.getElementById('modal-preco').value = limpar(preco);
 }
 
 function fecharModalEdicao() {
