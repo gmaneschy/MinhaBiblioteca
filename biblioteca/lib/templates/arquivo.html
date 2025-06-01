@@ -59,8 +59,8 @@
                     <td>{{ livro.titulo }}</td>
                     <td>{{ livro.autor }}</td>
                     <td>{{ livro.editora }}</td>
-                    <td>{{ livro.tradutor }}</td>
-                    <td>{{ livro.genero }}</td>
+                    <td>{{ livro.tradutor|default_if_none:"" }}</td>
+                    <td>{{ livro.genero|default_if_none:"" }}</td>
                     <td>{{ livro.npaginas }}</td>
                     <td>{{ livro.ano }}</td>
                     <td>{{ livro.preco }}</td>
