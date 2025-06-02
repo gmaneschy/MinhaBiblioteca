@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from django.utils.html import escape
+from django.views.decorators.csrf import csrf_protect
 from django.utils.safestring import mark_safe
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
@@ -11,27 +10,30 @@ import json
 
 
 def login_page(request):
-    login_form = CustomAuthenticationForm(request, data=request.POST or None)
-    register_form = CustomUserCreationForm(request.POST or None)
-
     if request.method == 'POST':
         action = request.POST.get('action')
 
         if action == 'login':
+            login_form = CustomAuthenticationForm(request, data=request.POST)
+            register_form = CustomUserCreationForm()  # Formulário vazio
+
             if login_form.is_valid():
                 user = login_form.get_user()
                 auth_login(request, user)
                 return redirect('homepage')
-            else:
-                messages.error(request, 'Erro ao fazer login.')
 
         elif action == 'registro':
+            login_form = CustomAuthenticationForm(request)  # Formulário vazio
+            register_form = CustomUserCreationForm(request.POST)
+
             if register_form.is_valid():
                 register_form.save()
                 messages.success(request, 'Conta criada com sucesso.')
                 return redirect('login')
-            else:
-                messages.error(request, 'Erro ao criar conta.')
+
+    else:  # GET request
+        login_form = CustomAuthenticationForm(request)
+        register_form = CustomUserCreationForm()
 
     return render(request, 'login.html', {
         'login': login_form,

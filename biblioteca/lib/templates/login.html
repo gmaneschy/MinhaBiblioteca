@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <style>
+<style>
 .hidden { display: none; }
 .tab-button.active { font-weight: bold; }
 </style>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="tab-content" id="login">
-        <form method="post">
+        <form method="post" id="login-form">
             {% csrf_token %}
             <input type="hidden" name="action" value="login">
             {{ login.as_p }}
@@ -30,7 +30,7 @@
     </div>
 
     <div class="tab-content hidden" id="registro">
-        <form method="post">
+        <form method="post" id="registro-form">
             {% csrf_token %}
             <input type="hidden" name="action" value="registro">
             {{ form.as_p }}
@@ -38,13 +38,7 @@
         </form>
     </div>
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+
 </div>
 
 <script>
