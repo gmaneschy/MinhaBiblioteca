@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{% static 'css/modais.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <div class="arquivo">
-    <h1>Minha Biblioteca</h1>
+    <h1 contenteditable="true" id="nome-biblioteca">{{ biblioteca.nome }}</h1>
 
     <div class="search-container">
         <form id="search-form" class="search-form" onsubmit="event.preventDefault(); realizarPesquisa();">
@@ -50,7 +50,7 @@
                             <i class="fa-solid fa-gear"></i>
                         </button>
                     </div>
-                </th>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +63,7 @@
                     <td>{{ livro.genero|default_if_none:"" }}</td>
                     <td>{{ livro.npaginas }}</td>
                     <td>{{ livro.ano }}</td>
-                    <td>{{ livro.preco }}</td>
+                    <td>{{ livro.preco }} R$</td>
                     <td>
                     <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')" title="Editar Livro"><i class="fa-solid fa-pen"></i></a>
                     <a class="btn" onclick="excluirLivro('{{ livro.id }}', '{% url 'deletar_livro' livro.id %}')" title="Excluir Livro"><i class="fa-solid fa-eraser"></i></a>
@@ -172,5 +172,35 @@
         </form>
     </div>
 </div>
+
+<script>
+document.getElementById('nome-biblioteca').addEventListener('blur', function() {
+    updateBibliotecaName(this.innerText);
+});
+
+document.getElementById('nome-biblioteca').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        this.blur();
+    }
+});
+
+function updateBibliotecaName(newName) {
+    fetch(window.location.href, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: 'nome_biblioteca=' + encodeURIComponent(newName)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status !== 'success') {
+            alert('Erro ao atualizar o nome da biblioteca');
+        }
+    });
+}
+</script>
 
 {% endblock %}

@@ -6,6 +6,42 @@
 <link rel="stylesheet" href="{% static 'css/usuario.css' %}">
 
 <div class="usuario">
+<div class="usuario">
+
+  <!-- Seção do Perfil -->
+  <div class="perfil-usuario">
+    <div class="foto-perfil">
+      <img src="{% static 'img/default-user.png' %}" alt="Foto de perfil" id="foto-perfil">
+      <input type="file" id="upload-foto" accept="image/*">
+    </div>
+    <div class="descricao-biblioteca">
+      <h2>{{ user.username }}</h2>
+      <p>{{ user.profile.descricao|default:"Nenhuma descrição ainda." }}</p>
+    </div>
+  </div>
+
+  <!-- Estatísticas da Biblioteca -->
+  <div class="estatisticas-biblioteca">
+    <h3>Estatísticas da Biblioteca</h3>
+    <table class="tabela-estatisticas">
+      <thead>
+        <tr>
+          <th>Total de Livros</th>
+          <th>Total de Páginas</th>
+          <th>Preço Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ total_livros }}</td>
+          <td>{{ total_paginas }}</td>
+          <td>{{ preco_total }} R$</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 
 
 

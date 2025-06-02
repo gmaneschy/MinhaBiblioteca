@@ -22,3 +22,53 @@ body {
   overflow-y: auto; /* rolagem interna se necessário */
   color: #444;
 }
+
+
+
+.perfil-usuario {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.foto-perfil {
+  text-align: center;
+}
+
+.foto-perfil img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.foto-perfil input {
+  margin-top: 10px;
+  display: block;
+}
+
+.descricao-biblioteca {
+  flex: 1;
+}
+
+.estatisticas-biblioteca {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #ccc;
+}
+
+.tabela-estatisticas {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-estatisticas th,
+.tabela-estatisticas td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+

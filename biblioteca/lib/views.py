@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.safestring import mark_safe
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
-from .models import Livro
+from .models import Livro, Biblioteca
 from .forms import LivroForm, CustomUserCreationForm, CustomAuthenticationForm
 import json
 
@@ -45,15 +45,16 @@ def cadastrar_livro(request):
     if request.method == 'POST':
         form = LivroForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Redirecionar para evitar reenvio do formulário
+            livro = form.save(commit=False)
+            livro.usuario = request.user
+            livro.save()
             return redirect('homepage')
     else:
         form = LivroForm()
     return render(request, 'homepage.html', {'form': form})
 
 def arquivo(request):
-    livros = Livro.objects.all()
+    livros = Livro.objects.filter(usuario=request.user)
     context = {'livros': livros}
     return render(request, 'arquivo.html', context)
 
@@ -117,4 +118,23 @@ def editar_anotacoes(request):
 
     return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
-def usuario(request): return render(request, 'usuario.html')
+
+def usuario(request):
+    livros = Livro.objects.filter(usuario=request.user)
+    biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
+
+    if request.method == 'POST' and 'nome_biblioteca' in request.POST:
+        biblioteca.nome = request.POST['nome_biblioteca']
+        biblioteca.save()
+        return JsonResponse({'status': 'success'})
+
+    total_livros = livros.count()
+    total_paginas = sum(livro.npaginas for livro in livros if livro.npaginas)
+    preco_total = sum(livro.preco for livro in livros if livro.preco)
+
+    return render(request, 'usuario.html', {
+        'biblioteca': biblioteca,
+        'total_livros': total_livros,
+        'total_paginas': total_paginas,
+        'preco_total': preco_total,
+    })
