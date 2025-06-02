@@ -37,5 +37,18 @@ class Biblioteca(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='biblioteca')
     nome = models.CharField("Nome da Biblioteca", max_length=100, default="Minha biblioteca")
 
+    def save(self, *args, **kwargs):
+        if not self.nome.strip():
+            self.nome = "Minha biblioteca"
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.nome
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def criar_biblioteca(sender, instance, created, **kwargs):
+    if created:
+        Biblioteca.objects.create(usuario=instance)

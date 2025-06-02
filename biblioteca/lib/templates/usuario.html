@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{% static 'css/usuario.css' %}">
 
 <div class="usuario">
+<h1 contenteditable="true" id="nome-biblioteca">{{ biblioteca.nome }}</h1>
 <div class="usuario">
 
   <!-- Seção do Perfil -->
@@ -47,6 +48,44 @@
 
 </div>
 
+<script>
+document.getElementById('nome-biblioteca').addEventListener('blur', function() {
+    updateBibliotecaName(this.innerText);
+});
 
+document.getElementById('nome-biblioteca').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        this.blur();
+    }
+});
+
+function updateBibliotecaName(newName) {
+    fetch(window.location.href, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: 'nome_biblioteca=' + encodeURIComponent(newName)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status !== 'success') {
+            alert('Erro ao atualizar o nome da biblioteca');
+        }
+    });
+}
+
+document.getElementById('nome-biblioteca').addEventListener('blur', function() {
+  const novoNome = this.innerText.trim();
+  if (!novoNome) {
+      alert('Nome não pode ser vazio!');
+      this.innerText = "{{ biblioteca.nome }}";  // Restaura o valor anterior
+      return;
+  }
+  updateBibliotecaName(novoNome);
+});
+</script>
 
 {% endblock %}

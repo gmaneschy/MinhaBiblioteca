@@ -23,7 +23,13 @@ body {
   color: #444;
 }
 
-
+h1 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  color: #444;
+  z-index: 10;
+}
 
 .perfil-usuario {
   display: flex;

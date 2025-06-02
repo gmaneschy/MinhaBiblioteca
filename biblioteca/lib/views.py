@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.utils.safestring import mark_safe
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, get_user_model
 from django.contrib import messages
 from .models import Livro, Biblioteca
 from .forms import LivroForm, CustomUserCreationForm, CustomAuthenticationForm
 import json
 
+User = get_user_model()
 
 def login_page(request):
     if request.method == 'POST':
@@ -37,9 +38,8 @@ def login_page(request):
 
     return render(request, 'login.html', {
         'login': login_form,
-        'form': register_form
+        'form': register_form,
     })
-
 
 def cadastrar_livro(request):
     if request.method == 'POST':
@@ -55,7 +55,11 @@ def cadastrar_livro(request):
 
 def arquivo(request):
     livros = Livro.objects.filter(usuario=request.user)
-    context = {'livros': livros}
+    biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
+    context = {
+        'livros': livros,
+        'biblioteca': biblioteca  # Agora ambos estão no mesmo contexto
+    }
     return render(request, 'arquivo.html', context)
 
 def editar_livro(request, livro_id):
@@ -120,14 +124,14 @@ def editar_anotacoes(request):
 
 
 def usuario(request):
-    livros = Livro.objects.filter(usuario=request.user)
     biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
 
     if request.method == 'POST' and 'nome_biblioteca' in request.POST:
-        biblioteca.nome = request.POST['nome_biblioteca']
+        biblioteca.nome = request.POST['nome_biblioteca'].strip() or "Minha biblioteca"
         biblioteca.save()
         return JsonResponse({'status': 'success'})
 
+    livros = Livro.objects.filter(usuario=request.user)
     total_livros = livros.count()
     total_paginas = sum(livro.npaginas for livro in livros if livro.npaginas)
     preco_total = sum(livro.preco for livro in livros if livro.preco)
