@@ -64,6 +64,7 @@ form textarea {
     background-color: #a67b5b;
     color: white;
     font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .tab-button:first-child {
@@ -97,6 +98,7 @@ form button {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 form button:hover {
