@@ -8,13 +8,6 @@ from .models import Livro
 User = get_user_model()
 
 class LivroForm(forms.ModelForm):
-    def clean_tradutor(self):
-        valor = self.cleaned_data.get('tradutor')
-        return None if valor in ["", "None"] else valor
-    def clean_genero(self):
-        valor = self.cleaned_data.get('genero')
-        return None if valor in ["", "None"] else valor
-
     class Meta:
         model = Livro
         fields = ['titulo', 'autor', 'editora', 'tradutor', 'genero', 'npaginas', 'ano', 'preco', 'status']
@@ -30,26 +23,56 @@ class LivroForm(forms.ModelForm):
             'status': 'Status',
         }
         widgets = {
-            'npaginas': forms.NumberInput(attrs={'min': 0, 'max': 9999, 'oninput': "this.value = this.value.replace(/[^0-9]/g, '')"}),
-            'ano': forms.NumberInput(attrs={'min': 0, 'max': 9999, 'oninput': "this.value = this.value.replace(/[^0-9]/g, '')"}),
-            'preco': forms.NumberInput(attrs={'min': 0, 'step': '0.01', 'oninput': "this.value = this.value.replace(/[^0-9.,]/g, '')"}),
+            'npaginas': forms.NumberInput(attrs={
+                'min': 0,
+                'max': 9999,
+                'oninput': "this.value = this.value.replace(/[^0-9]/g, '')",
+                'onfocus': "if(this.defaultValue) this.value=''"
+            }),
+            'ano': forms.NumberInput(attrs={
+                'min': 0,
+                'max': 9999,
+                'oninput': "this.value = this.value.replace(/[^0-9]/g, '')",
+                'onfocus': "if(this.defaultValue) this.value=''"
+            }),
+            'preco': forms.TextInput(attrs={
+                'inputmode': 'decimal',
+                'oninput': r"this.value = this.value.replace(/[^0-9.,]/g, '')",
+                'onfocus': "if(this.defaultValue) this.value=''"
+            }),
             'tradutor': forms.TextInput(attrs={
                 'pattern': r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$',
                 'title': 'Apenas letras (sem números ou símbolos)',
-                'oninput': "this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
+                'oninput': r"this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
             }),
             'genero': forms.TextInput(attrs={
                 'pattern': r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$',
                 'title': 'Apenas letras (sem números ou símbolos)',
-                'oninput': "this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
+                'oninput': r"this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
             }),
             'autor': forms.TextInput(attrs={
                 'pattern': r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$',
                 'title': 'Apenas letras (sem números ou símbolos)',
-                'oninput': "this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
+                'oninput': r"this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '')"
             }),
             'status': forms.Select()
         }
+        def clean_tradutor(self):
+            valor = self.cleaned_data.get('tradutor')
+            return None if valor in ["", "None"] else valor
+
+        def clean_genero(self):
+            valor = self.cleaned_data.get('genero')
+            return None if valor in ["", "None"] else valor
+
+        def clean_preco(self):
+            preco = self.cleaned_data.get('preco')
+            if isinstance(preco, str):
+                preco = preco.replace(',', '.')
+            try:
+                return float(preco)
+            except (ValueError, TypeError):
+                raise forms.ValidationError("Preço inválido. Use números.")
 
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Nome do usuário', min_length=4, max_length=150)

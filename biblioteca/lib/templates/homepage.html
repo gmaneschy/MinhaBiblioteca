@@ -71,5 +71,14 @@
       }, 2000);
     }
   });
+
+document.addEventListener('DOMContentLoaded', function () {
+const precoInput = document.querySelector('input[name="preco"]');
+if (precoInput) {
+  precoInput.addEventListener('input', function () {
+    this.value = this.value.replace(',', '.');  // substitui vírgula por ponto
+  });
+}
+});
 </script>
 {% endblock %}

@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/homepage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748877001928</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary=".">
+      <option name="closed" value="true" />
+      <created>1748879634550</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1748879634550</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
