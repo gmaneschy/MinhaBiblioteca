@@ -16,6 +16,7 @@ Fazer:
             Quantidade de páginas
             Preço total
         Padronizar estilo
+        Botão de logout
 
 Erros:
     Corrigir exibição de erro em inglês na tela recuperação de senha

@@ -63,7 +63,7 @@
                     <td>{{ livro.genero|default_if_none:"" }}</td>
                     <td>{{ livro.npaginas|default_if_none:"" }}</td>
                     <td>{{ livro.ano|default_if_none:"" }}</td>
-                    <td>{{ livro.preco|default_if_none:"" }} R$</td>
+                    <td>R$ {{ livro.preco|default_if_none:"" }}</td>
                     <td>
                     <a class="btn" onclick="abrirModal({{ livro.id }}, '{{ livro.titulo|escapejs }}', '{{ livro.autor|escapejs }}', '{{ livro.editora|escapejs }}', '{{ livro.tradutor|escapejs }}', '{{ livro.genero|escapejs }}', '{{ livro.npaginas|escapejs }}', '{{ livro.ano|escapejs }}', '{{ livro.preco|escapejs }}')" title="Editar Livro"><i class="fa-solid fa-pen"></i></a>
                     <a class="btn" onclick="excluirLivro('{{ livro.id }}', '{% url 'deletar_livro' livro.id %}')" title="Excluir Livro"><i class="fa-solid fa-eraser"></i></a>

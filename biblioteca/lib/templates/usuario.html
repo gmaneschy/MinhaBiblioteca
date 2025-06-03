@@ -5,7 +5,7 @@
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <link rel="stylesheet" href="{% static 'css/usuario.css' %}">
 
-<div class="usuario">
+<div class="container">
 <h1 contenteditable="true" spellcheck="false" id="nome-biblioteca">{{ biblioteca.nome }}</h1>
 <div class="usuario">
 
@@ -13,7 +13,10 @@
   <div class="perfil-usuario">
     <div class="foto-perfil">
       <img src="{% static 'img/default-user.png' %}" alt="Foto de perfil" id="foto-perfil">
-      <input type="file" id="upload-foto" accept="image/*">
+      <label for="upload-foto" class="upload-icone">
+        <i class="fa-solid fa-image"></i>
+      </label>
+      <input type="file" id="upload-foto" accept="image/*" style="display: none;">
     </div>
     <div class="descricao-biblioteca">
       <h2>{{ user.username }}</h2>
@@ -43,9 +46,6 @@
   </div>
 
 </div>
-
-
-
 </div>
 
 <script>
