@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Campos numerais de cadastro corrigidos.">
+    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Tela de usuário">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/BACKLOG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/BACKLOG.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/tabela.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/tabela.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/usuario.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/usuario.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/arquivo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/templates/usuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/templates/usuario.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -283,7 +280,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748957525249</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Tela de usuário">
+      <option name="closed" value="true" />
+      <created>1748966490444</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1748966490444</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -314,6 +319,7 @@
     <MESSAGE value="preset usuario.html&#10;recriar modelo de usuario" />
     <MESSAGE value="." />
     <MESSAGE value="Campos numerais de cadastro corrigidos." />
-    <option name="LAST_COMMIT_MESSAGE" value="Campos numerais de cadastro corrigidos." />
+    <MESSAGE value="Tela de usuário" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tela de usuário" />
   </component>
 </project>
