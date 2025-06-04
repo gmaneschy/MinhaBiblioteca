@@ -36,7 +36,7 @@ class Livro(models.Model):
 class Biblioteca(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='biblioteca')
     nome = models.CharField("Nome da Biblioteca", max_length=100, default="Minha biblioteca")
-
+    descricao = models.TextField("Descrição da Biblioteca", max_length=1000, blank=True, default="")
     def save(self, *args, **kwargs):
         if not self.nome.strip():
             self.nome = "Minha biblioteca"

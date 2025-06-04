@@ -131,6 +131,11 @@ def usuario(request):
         biblioteca.save()
         return JsonResponse({'status': 'success'})
 
+    if 'descricao_biblioteca' in request.POST:
+        biblioteca.descricao = request.POST['descricao_biblioteca'].strip()
+        biblioteca.save()
+        return JsonResponse({'status': 'success'})
+
     livros = Livro.objects.filter(usuario=request.user)
     total_livros = livros.count()
     total_paginas = sum(livro.npaginas for livro in livros if livro.npaginas)

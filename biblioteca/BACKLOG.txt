@@ -9,13 +9,6 @@ Fazer:
         Verificar validações do cadastro de usuário
 
     usuario.html:
-        Foto de perfil (upload e edição)
-        Descrição de perfil (edição)
-        Dados da biblioteca (gráficos):
-            Quantidade de livros
-            Quantidade de páginas
-            Preço total
-        Padronizar estilo
         Botão de logout
 
 Erros:

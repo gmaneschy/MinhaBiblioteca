@@ -26,89 +26,51 @@ color: #444;
 }
 
 .usuario {
-background: #fdf6e3;
-position: relative;
-border-radius: 30px;
-border: 3px solid #8b5e3c;
-height: 100%;
-color: #444;
-}
-
-h1 {
-position: absolute;
-margin: 10px;
-color: #444;
-z-index: 10;
-top: 10%;
-left: 50%;
-transform: translate(-50%, -50%);
+  background: #fdf6e3;
+  border-radius: 30px;
+  border: 3px solid #8b5e3c;
+  height: 90%;
+  width: 100%;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .perfil-usuario {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  width: 50%;
-  height: auto;
-  max-height: 35%;
+  width: 90%;
+  max-width: 800px;
   padding: 20px;
   border: 3px solid #8b5e3c;
   border-radius: 10px;
-  top: 10%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, 0);
   background-color: #fdf6e3;
+  box-sizing: border-box;
 }
 
-.foto-perfil {
-text-align: center;
+.estatisticas-biblioteca {
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid #8b5e3c;
+  background-color: #fdf6e3;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
 
-.foto-perfil img {
-width: 120px;
-height: 120px;
-border-radius: 50%;
-object-fit: cover;
-}
-
-.foto-perfil input {
-margin-top: 10px;
-display: block;
-}
-
-.upload-icone {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 20px;
-  color: #8b5e3c;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.upload-icone:hover {
-  color: #a76b47;
-}
 
 .descricao-biblioteca {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
-  overflow-y: auto;
+  width: 90%;
   padding-right: 10px;
-}
-
-
-.estatisticas-biblioteca {
-padding: 20px;
-border-radius: 10px;
-border: 3px solid #8b5e3c;
-width: 50%;
-top: 40%;
-left: 50%;
-position: absolute;
-transform: translate(-50%, -50%);
 }
 
 .tabela-estatisticas {
@@ -141,15 +103,48 @@ width: auto;
 }
 
 #nome-biblioteca {
-background-color: transparent;
-outline: none;
-padding: 4px 8px;
-border-bottom: 3px solid #8b5e3c;
-transition: background-color 0.3s ease;
+  display: inline-block;
+  background-color: transparent;
+  outline: none;
+  border: 3px solid transparent; /* Ocupa o espaço das 4 bordas, mas invisível */
+  border-bottom-color: #8b5e3c;   /* Apenas a borda inferior visível */
+  border-radius: 10px;
+  color: #444;
+  font-size: 24px;
+  padding: 5px 10px;
+  white-space: nowrap;
+  width: auto;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 #nome-biblioteca:focus {
-background-color: #fdf6e3;
-border: 3px solid #8b5e3c;
-border-radius: 10px;
+  background-color: #fdf6e3;
+  border-color: #8b5e3c; /* Ativa todas as bordas */
+}
+
+.editable-descricao {
+  display: block;         /* Torna o elemento em bloco */
+  width: 100%;            /* Preenche a largura do container pai */
+  box-sizing: border-box; /* Considera padding/borda dentro do 100% */
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  white-space: pre-wrap;
+  max-height: 120px; /* Limite razoável */
+  overflow-y: auto;  /* Scroll se passar do limite */
+}
+
+.editable-descricao:not(:focus):empty::before {
+  content: attr(data-placeholder);
+  color: #aaa;
+}
+
+.editable-descricao[contenteditable="true"] {
+  background-color: #fdf6e3;
+  outline: 2px solid #8b5e3c;
 }

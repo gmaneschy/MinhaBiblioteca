@@ -6,17 +6,22 @@
 <link rel="stylesheet" href="{% static 'css/usuario.css' %}">
 
 <div class="container">
-<h1 contenteditable="true" spellcheck="false" id="nome-biblioteca">{{ biblioteca.nome }}</h1>
+
 <div class="usuario">
 
+  <h1 contenteditable="true" spellcheck="false" id="nome-biblioteca">{{ biblioteca.nome }}</h1>
   <!-- Seção do Perfil -->
   <div class="perfil-usuario">
-    <div class="descricao-biblioteca">
-      <h2>{{ user.username }}</h2>
-      <p>{{ user.profile.descricao|default:"Nenhuma descrição ainda." }}</p>
+    <div id="descricao-biblioteca"
+         role="textbox"
+         spellcheck="false"
+         contenteditable="false"
+         class="editable-descricao"
+         onclick="editarDescricao()"
+         data-placeholder="Descreva a sua biblioteca.">
+      {{ biblioteca.descricao }}
     </div>
   </div>
-
   <!-- Estatísticas da Biblioteca -->
   <div class="estatisticas-biblioteca">
     <h3>Estatísticas da Biblioteca</h3>
@@ -79,6 +84,81 @@ document.getElementById('nome-biblioteca').addEventListener('blur', function() {
   }
   updateBibliotecaName(novoNome);
 });
+
+function editarDescricao() {
+  const p = document.getElementById("descricao-biblioteca");
+  p.setAttribute("contenteditable", "true");
+
+  // Verifica se o conteúdo é vazio ou só espaços
+  if (!p.textContent.trim()) {
+    p.textContent = ''; // Limpa para mostrar o placeholder
+  }
+
+  p.focus();
+
+  // Salvar ao sair do foco
+  p.onblur = function () {
+    p.setAttribute("contenteditable", "false");
+
+    const descricao = p.innerText.trim();
+
+    // Se estiver vazio ou só espaços, mostra placeholder novamente
+    if (!descricao) {
+      p.textContent = '';
+    }
+
+    fetch("", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken"),
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: `descricao_biblioteca=${encodeURIComponent(descricao)}`
+    }).then(res => res.json()).then(data => {
+      if (data.status !== 'success') {
+        alert("Erro ao salvar a descrição.");
+      }
+    });
+  };
+}
+
+// Função auxiliar para verificar se o elemento está vazio (incluindo só espaços)
+function isEmpty(element) {
+  return !element.textContent || !element.textContent.trim();
+}
+
+// Adiciona um observer para verificar mudanças no conteúdo
+document.addEventListener('DOMContentLoaded', function() {
+  const descElement = document.getElementById("descricao-biblioteca");
+
+  // Verifica inicialmente
+  if (isEmpty(descElement)) {
+    descElement.textContent = '';
+  }
+
+  // Observa mudanças para manter o placeholder
+  descElement.addEventListener('input', function() {
+    if (!this.textContent.trim()) {
+      this.textContent = '';
+    }
+  });
+});
+
+// Função para pegar o CSRF token (mantida igual)
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 </script>
 
 {% endblock %}
