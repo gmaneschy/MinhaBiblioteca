@@ -11,13 +11,6 @@
 
   <!-- Seção do Perfil -->
   <div class="perfil-usuario">
-    <div class="foto-perfil">
-      <img src="{% static 'img/default-user.png' %}" id="foto-perfil">
-      <label for="upload-foto" class="upload-icone">
-        <i class="fa-solid fa-image"></i>
-      </label>
-      <input type="file" id="upload-foto" accept="image/*" style="display: none;">
-    </div>
     <div class="descricao-biblioteca">
       <h2>{{ user.username }}</h2>
       <p>{{ user.profile.descricao|default:"Nenhuma descrição ainda." }}</p>
