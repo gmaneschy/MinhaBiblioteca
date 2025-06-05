@@ -101,7 +101,7 @@
             <label for="modal-ano">Ano:</label>
             <input type="number" name="ano" id="modal-ano" min="0000" max="9999">
             <label for="modal-preco">Preço:</label>
-            <input type="text" name="preco" id="modal-preco">
+            <input type="text" name="preco" id="modal-preco" oninput="formatarPreco(this)">
             <div class="modal-botoes" style="align-items: center">
                 <button type="submit" class="btn">Salvar</button>
                 <button type="button" class="btn" onclick="fecharModalEdicao()">Cancelar</button>

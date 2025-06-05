@@ -15,6 +15,16 @@ function abrirModal(id, titulo, autor, editora, tradutor, genero, npaginas, ano,
     document.getElementById('modal-ano').value = limpar(ano);
     document.getElementById('modal-preco').value = limpar(preco);
 }
+function formatarPreco(campo) {
+    // Substitui vírgula por ponto
+    campo.value = campo.value.replace(/,/g, '.');
+
+    // Opcional: Remove múltiplos pontos decimais
+    const partes = campo.value.split('.');
+    if (partes.length > 2) {
+        campo.value = partes[0] + '.' + partes.slice(1).join('');
+    }
+}
 
 function fecharModalEdicao() {
     document.getElementById('modal').style.display = 'none';
@@ -28,11 +38,11 @@ function salvarLivro(event) {
         titulo: document.getElementById('modal-titulo').value,
         autor: document.getElementById('modal-autor').value,
         editora: document.getElementById('modal-editora').value,
-        tradutor: document.getElementById('modal-tradutor').value,
-        genero: document.getElementById('modal-genero').value,
-        npaginas: document.getElementById('modal-npaginas').value,
-        ano: document.getElementById('modal-ano').value,
-        preco: document.getElementById('modal-preco').value
+        tradutor: document.getElementById('modal-tradutor').value || null,
+        genero: document.getElementById('modal-genero').value || null,
+        npaginas: document.getElementById('modal-npaginas').value || null,
+        ano: document.getElementById('modal-ano').value || null,
+        preco: document.getElementById('modal-preco').value || null
     };
 
     if (!formData.titulo || !formData.autor || !formData.editora) {

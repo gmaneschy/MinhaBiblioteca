@@ -75,16 +75,24 @@ def arquivo(request):
 @login_required
 def editar_livro(request, livro_id):
     if request.method == 'POST':
-        data = json.loads(request.body)  # <- Aqui está a mudança
+        data = json.loads(request.body)
         livro = Livro.objects.get(id=livro_id)
+
+        # Tratar campos numéricos
+        def parse_number(value, default=None):
+            if value == '' or value is None:
+                return default
+            return value
+
         livro.titulo = data.get('titulo')
         livro.autor = data.get('autor')
         livro.editora = data.get('editora')
-        livro.tradutor = data.get('tradutor')
-        livro.genero = data.get('genero')
-        livro.npaginas = data.get('npaginas')
-        livro.ano = data.get('ano')
-        livro.preco = data.get('preco')
+        livro.tradutor = data.get('tradutor') or None
+        livro.genero = data.get('genero') or None
+        livro.npaginas = parse_number(data.get('npaginas'), None)
+        livro.ano = parse_number(data.get('ano'), None)
+        livro.preco = parse_number(data.get('preco'), None)
+
         livro.save()
         return JsonResponse({
             'id': livro.id,
