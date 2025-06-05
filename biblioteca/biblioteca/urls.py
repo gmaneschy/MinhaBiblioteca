@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from lib import views
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('deletar/<int:livro_id>/', views.deletar_livro, name='deletar_livro'),
     path('editar-anotacoes/', views.editar_anotacoes, name='editar_anotacoes'),
     path('login/', views.login_page, name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('usuario/', views.usuario, name='usuario'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),

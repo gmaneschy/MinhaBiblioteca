@@ -42,21 +42,45 @@
 </div>
 
 <script>
-document.querySelectorAll('.tab-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const tab = button.getAttribute('data-tab')
+document.addEventListener("DOMContentLoaded", function () {
+    const activeTab = "{{ active_tab|default:'login' }}";  // Valor vindo da view
 
-        // Ativa/desativa botões
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'))
-        button.classList.add('active')
+    // Ativa a aba correta
+    document.querySelectorAll('.tab-button').forEach(button => {
+        const tab = button.getAttribute('data-tab');
+        if (tab === activeTab) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
 
-        // Mostra/esconde conteúdo
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.add('hidden')
+    // Mostra o conteúdo correto
+    document.querySelectorAll('.tab-content').forEach(content => {
+        if (content.id === activeTab) {
+            content.classList.remove('hidden');
+        } else {
+            content.classList.add('hidden');
+        }
+    });
+
+    // Ainda permite trocar manualmente de aba
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const tab = button.getAttribute('data-tab');
+
+            // Ativa/desativa botões
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'))
+            button.classList.add('active')
+
+            // Mostra/esconde conteúdo
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden')
+            })
+            document.getElementById(tab).classList.remove('hidden')
         })
-        document.getElementById(tab).classList.remove('hidden')
-    })
-})
+    });
+});
 </script>
 
 </body>

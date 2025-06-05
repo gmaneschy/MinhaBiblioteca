@@ -4,6 +4,7 @@
 {% block content %}
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <link rel="stylesheet" href="{% static 'css/usuario.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <div class="container">
 
@@ -37,11 +38,17 @@
         <tr>
           <td>{{ total_livros }}</td>
           <td>{{ total_paginas }}</td>
-          <td>{{ preco_total }} R$</td>
+          <td>R$ {{ preco_total }}</td>
         </tr>
       </tbody>
     </table>
   </div>
+<form method="POST" action="{% url 'logout' %}" style="display: inline;">
+  {% csrf_token %}
+  <button type="submit" class="btn" title="Sair">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </button>
+</form>
 
 </div>
 </div>

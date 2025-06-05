@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.utils.safestring import mark_safe
 from django.contrib.auth import login as auth_login, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Livro, Biblioteca
 from .forms import LivroForm, CustomUserCreationForm, CustomAuthenticationForm
@@ -11,6 +12,8 @@ import json
 User = get_user_model()
 
 def login_page(request):
+    active_tab = 'login'  # Aba padrão
+
     if request.method == 'POST':
         action = request.POST.get('action')
 
@@ -22,25 +25,31 @@ def login_page(request):
                 user = login_form.get_user()
                 auth_login(request, user)
                 return redirect('homepage')
+            active_tab = 'login'
 
         elif action == 'registro':
-            login_form = CustomAuthenticationForm(request)  # Formulário vazio
+            login_form = CustomAuthenticationForm()  # Formulário vazio
             register_form = CustomUserCreationForm(request.POST)
 
             if register_form.is_valid():
                 register_form.save()
                 messages.success(request, 'Conta criada com sucesso.')
                 return redirect('login')
+            else:
+                active_tab = 'registro'  # Fica na aba de registro se houver erros
 
-    else:  # GET request
-        login_form = CustomAuthenticationForm(request)
+    else:  # GET
+        login_form = CustomAuthenticationForm()
         register_form = CustomUserCreationForm()
 
     return render(request, 'login.html', {
         'login': login_form,
         'form': register_form,
+        'active_tab': active_tab,
     })
 
+
+@login_required
 def cadastrar_livro(request):
     if request.method == 'POST':
         form = LivroForm(request.POST)
@@ -62,6 +71,7 @@ def arquivo(request):
     }
     return render(request, 'arquivo.html', context)
 
+@login_required
 def editar_livro(request, livro_id):
     if request.method == 'POST':
         data = json.loads(request.body)  # <- Aqui está a mudança
@@ -89,6 +99,7 @@ def editar_livro(request, livro_id):
     else:
         return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
+@login_required
 def deletar_livro(request, livro_id):
     if request.method == 'POST':
         try:
@@ -99,6 +110,7 @@ def deletar_livro(request, livro_id):
             return JsonResponse({'erro': 'Livro não encontrado'}, status=404)
     return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
+@login_required
 @csrf_protect
 def editar_anotacoes(request):
     if request.method == 'POST':
@@ -122,7 +134,7 @@ def editar_anotacoes(request):
 
     return JsonResponse({'erro': 'Método não permitido'}, status=405)
 
-
+@login_required
 def usuario(request):
     biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
 
