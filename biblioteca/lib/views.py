@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
-from django.utils.safestring import mark_safe
+from django.utils.html import escape
 from django.contrib.auth import login as auth_login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -126,7 +126,7 @@ def editar_anotacoes(request):
             return JsonResponse({
                 'status': 'ok',
                 'livro_id': livro.id,
-                'anotacoes': mark_safe(livro.anotacoes)  # Marca como seguro
+                'anotacoes': escape(livro.anotacoes)  # Escapa HTML perigoso
             })
 
         except Exception as e:
