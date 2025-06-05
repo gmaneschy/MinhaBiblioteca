@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Front-end tela de usuário finalizado">
+    <list default="true" id="a9749401-f458-4a7f-aad1-cdc7bf87c14b" name="Changes" comment="Pequeno ajuste na views.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/biblioteca/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/biblioteca/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biblioteca/lib/static/css/tabela.css" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/static/css/tabela.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biblioteca/lib/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biblioteca/lib/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

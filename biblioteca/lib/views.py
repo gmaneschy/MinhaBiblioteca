@@ -62,6 +62,7 @@ def cadastrar_livro(request):
         form = LivroForm()
     return render(request, 'homepage.html', {'form': form})
 
+@login_required
 def arquivo(request):
     livros = Livro.objects.filter(usuario=request.user)
     biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
