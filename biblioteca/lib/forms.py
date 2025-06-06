@@ -8,6 +8,15 @@ from .models import Livro
 User = get_user_model()
 
 class LivroForm(forms.ModelForm):
+    """
+    Herda de forms.ModelForm e está associado ao modelo Livro.
+        Campos incluídos: titulo, autor, editora, tradutor, genero, npaginas, ano, preco, status.
+    Possui validações personalizadas:
+        clean_tradutor(): Converte valores vazios ou "None" para None.
+        clean_genero(): Similar à validação do tradutor.
+        clean_preco(): Formata o preço, substituindo vírgula por ponto e convertendo para float.
+    Inclui widgets personalizados com validações no lado do cliente (JavaScript) para formatar números, remover caracteres inválidos, etc.
+    """
     class Meta:
         model = Livro
         fields = ['titulo', 'autor', 'editora', 'tradutor', 'genero', 'npaginas', 'ano', 'preco', 'status']
@@ -75,6 +84,15 @@ class LivroForm(forms.ModelForm):
                 raise forms.ValidationError("Preço inválido. Use números.")
 
 class CustomUserCreationForm(forms.Form):
+    """
+    Formulário personalizado para criação de usuários.
+    Campos: username, email, password1, password2.
+    Validações:
+        clean_username(): Verifica se o nome de usuário já existe.
+        clean_email(): Verifica se o e-mail já está em uso.
+        clean_password2(): Confirma se as senhas são iguais.
+        Metodo save(): Cria e salva um novo usuário com os dados fornecidos, garantindo que não seja staff nem superusuário.
+    """
     username = forms.CharField(label='Nome do usuário', min_length=4, max_length=150)
     email = forms.EmailField(label='E-mail')
     password1 = forms.CharField(label='Senha', min_length=8, widget=forms.PasswordInput)
@@ -117,8 +135,12 @@ class CustomUserCreationForm(forms.Form):
         return user
 
 class CustomAuthenticationForm(AuthenticationForm):
+    """
+    Estende o formulário de autenticação padrão do Django.
+    Personaliza o campo username para aceitar tanto nome de usuário quanto e-mail.
+    Sobrescreve o metodo clean() para permitir login com e-mail, convertendo-o para o nome de usuário correspondente antes da autenticação.
+    """
     username = forms.CharField(label='Usuário ou E-mail')
-
     def clean(self):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')

@@ -107,17 +107,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 import os
-LANGUAGE_CODE = 'pt-br'
-USE_I18N = True
-USE_L10N = True
+LANGUAGE_CODE = 'pt-br' # Idioma padrão
+USE_I18N = True # Habilita suporte a internacionalização
+USE_L10N = True # Habilita suporte a localização
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 TIME_ZONE = 'UTC'
 
 from django.utils.translation import gettext_lazy as _
-LANGUAGES = [
-    ('pt-br', _('Português Brasileiro')),
-]
+LANGUAGES = [('pt-br', _('Português Brasileiro')),] # Lista de idiomas suportados
 
 # Configurações de e-mail e site
 EMAIL_SUBJECT_PREFIX = '[Minha Biblioteca] '

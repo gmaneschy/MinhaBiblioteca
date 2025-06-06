@@ -1,12 +1,34 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 somente_letras_unicode = RegexValidator(
     regex=r'^[^\W\d_]+(?:\s[^\W\d_]+)*$',
 )
 User = get_user_model()
 # Create your models here.
 class Livro(models.Model):
+    """
+    Herda de models.Model do Django
+    Possui uma classe aninhada Status com escolhas para o status de leitura
+    Campos principais:
+        usuario: Chave estrangeira para o modelo de Usuário do Django
+        titulo: Título do livro (obrigatório)
+        autor: Autor do livro (obrigatório, aceita apenas letras)
+        editora: Editora do livro (obrigatório)
+        tradutor: Tradutor (opcional)
+        genero: Gênero literário (opcional)
+        npaginas: Número de páginas (opcional, validador de 0 a 9999)
+        ano: Ano de publicação (opcional, validador de 0 a 9999)
+        preco: Preço do livro (opcional, decimal)
+        status: Status de leitura (Lido/Não lido)
+        anotacoes: Campo de texto para anotações (opcional)
+    Métodos:
+        save(): Sobrescrito para tratar campos opcionais
+        str(): Retorna uma representação em string do livro
+    """
     class Status(models.TextChoices):
         LIDO = 'Lido', 'Lido'
         NAO_LIDO = 'Não lido', 'Não lido'
@@ -34,6 +56,16 @@ class Livro(models.Model):
 
 
 class Biblioteca(models.Model):
+    """
+    Também herda de models.Model
+    Campos:
+        usuario: Relacionamento um-para-um com o modelo de Usuário
+        nome: Nome da biblioteca (obrigatório, padrão "Minha biblioteca")
+        descricao: Descrição da biblioteca (opcional)
+    Métodos:
+        save(): Garante que o nome padrão seja usado se estiver vazio
+        str(): Retorna o nome da biblioteca
+    """
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='biblioteca')
     nome = models.CharField("Nome da Biblioteca", max_length=100, default="Minha biblioteca")
     descricao = models.TextField("Descrição da Biblioteca", max_length=1000, blank=True, default="")
@@ -45,10 +77,12 @@ class Biblioteca(models.Model):
     def __str__(self):
         return self.nome
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 @receiver(post_save, sender=User)
 def criar_biblioteca(sender, instance, created, **kwargs):
+    """
+    Função criar_biblioteca que é acionada após a criação de um novo usuário
+    Cria automaticamente uma instância de Biblioteca para cada novo usuário
+    """
     if created:
         Biblioteca.objects.create(usuario=instance)

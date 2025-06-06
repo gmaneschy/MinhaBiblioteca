@@ -12,8 +12,13 @@ import json
 User = get_user_model()
 
 def login_page(request):
+    """
+    Gerencia a página de login/registro.
+    Lida com requisições POST para login e registro de usuários.
+    Redireciona para a página inicial após o login bem-sucedido.
+    Exibe mensagens de sucesso/erro apropriadas.
+    """
     active_tab = 'login'  # Aba padrão
-
     if request.method == 'POST':
         action = request.POST.get('action')
 
@@ -51,6 +56,12 @@ def login_page(request):
 
 @login_required
 def cadastrar_livro(request):
+    """
+    Requer autenticação (@login_required).
+    Processa o formulário de cadastro de livros.
+    Associa o livro ao usuário logado antes de salvar.
+    Redireciona para a página inicial após o cadastro.
+    """
     if request.method == 'POST':
         form = LivroForm(request.POST)
         if form.is_valid():
@@ -64,6 +75,12 @@ def cadastrar_livro(request):
 
 @login_required
 def arquivo(request):
+    """
+    Requer autenticação.
+    Exibe a lista de livros do usuário.
+    Cria automaticamente uma biblioteca para o usuário se não existir.
+    Renderiza o template 'arquivo.html' com os livros e dados da biblioteca.
+    """
     livros = Livro.objects.filter(usuario=request.user)
     biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
     context = {
@@ -74,6 +91,13 @@ def arquivo(request):
 
 @login_required
 def editar_livro(request, livro_id):
+    """
+    Requer autenticação.
+    Processa requisições AJAX para edição de livros.
+    Atualiza os campos do livro com os dados recebidos.
+    Retorna os dados atualizados em formato JSON.
+    Inclui tratamento para campos numéricos e valores nulos.
+    """
     if request.method == 'POST':
         data = json.loads(request.body)
         livro = Livro.objects.get(id=livro_id)
@@ -110,6 +134,12 @@ def editar_livro(request, livro_id):
 
 @login_required
 def deletar_livro(request, livro_id):
+    """
+    Requer autenticação.
+    Remove um livro específico do banco de dados.
+    Retorna uma resposta JSON indicando sucesso ou falha.
+    Verifica se o livro existe antes de tentar deletar.
+    """
     if request.method == 'POST':
         try:
             livro = Livro.objects.get(id=livro_id)
@@ -122,6 +152,12 @@ def deletar_livro(request, livro_id):
 @login_required
 @csrf_protect
 def editar_anotacoes(request):
+    """
+    Requer autenticação e proteção CSRF.
+    Atualiza as anotações de um livro específico.
+    Valida a entrada e escapa HTML para segurança.
+    Retorna uma resposta JSON com o status da operação.
+    """
     if request.method == 'POST':
         try:
             livro_id = request.POST.get('livro_id')
@@ -145,6 +181,13 @@ def editar_anotacoes(request):
 
 @login_required
 def usuario(request):
+    """
+    Requer autenticação.
+    Gerencia as informações do perfil do usuário.
+    Permite atualizar o nome e descrição da biblioteca.
+    Calcula e exibe estatísticas como total de livros, páginas e valor total.
+    Renderiza o template 'usuario.html' com os dados do usuário e sua biblioteca.
+    """
     biblioteca, created = Biblioteca.objects.get_or_create(usuario=request.user)
 
     if request.method == 'POST' and 'nome_biblioteca' in request.POST:
